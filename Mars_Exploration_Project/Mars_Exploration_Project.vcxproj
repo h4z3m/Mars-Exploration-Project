@@ -139,10 +139,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CancelEvent.cpp" />
+    <ClCompile Include="Emergency_Mission.cpp" />
+    <ClCompile Include="Emergency_Rover.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FormulationEvent.cpp" />
+    <ClCompile Include="IO.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mission.cpp" />
+    <ClCompile Include="Mountaineous_Mission.cpp" />
+    <ClCompile Include="Mountaineous_Rover.cpp" />
+    <ClCompile Include="Polar_Mission.cpp" />
+    <ClCompile Include="Polar_Rover.cpp" />
+    <ClCompile Include="PromotionEvent.cpp" />
+    <ClCompile Include="Rover.cpp" />
+    <ClCompile Include="Station.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="CancelEvent.h" />
+    <ClInclude Include="Emergency_Mission.h" />
+    <ClInclude Include="Emergency_Rover.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="FormulationEvent.h" />
+    <ClInclude Include="IO.h" />
+    <ClInclude Include="Mission.h" />
+    <ClInclude Include="Mountaineous_Mission.h" />
+    <ClInclude Include="Mountaineous_Rover.h" />
+    <ClInclude Include="Polar_Mission.h" />
+    <ClInclude Include="Polar_Rover.h" />
+    <ClInclude Include="PromotionEvent.h" />
+    <ClInclude Include="Rover.h" />
+    <ClInclude Include="Station.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
