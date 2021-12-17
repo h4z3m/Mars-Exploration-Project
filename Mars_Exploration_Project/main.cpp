@@ -21,6 +21,6 @@
 int main(void) {
 
 
-
+	int x;
 	return 0;
 }/*End main*/
