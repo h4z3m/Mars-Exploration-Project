@@ -139,39 +139,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CancelEvent.cpp" />
-    <ClCompile Include="Emergency_Mission.cpp" />
-    <ClCompile Include="Emergency_Rover.cpp" />
-    <ClCompile Include="Event.cpp" />
-    <ClCompile Include="FormulationEvent.cpp" />
-    <ClCompile Include="IO.cpp" />
+    <ClCompile Include="Datastructures\PriQ ADT\test.cpp" />
+    <ClCompile Include="Events\CancelEvent.cpp" />
+    <ClCompile Include="Events\Event.cpp" />
+    <ClCompile Include="Events\FormulationEvent.cpp" />
+    <ClCompile Include="Events\PromotionEvent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mission.cpp" />
-    <ClCompile Include="Mountaineous_Mission.cpp" />
-    <ClCompile Include="Mountaineous_Rover.cpp" />
-    <ClCompile Include="Polar_Mission.cpp" />
-    <ClCompile Include="Polar_Rover.cpp" />
-    <ClCompile Include="PromotionEvent.cpp" />
-    <ClCompile Include="Rover.cpp" />
-    <ClCompile Include="Station.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Misc\IO.cpp" />
+    <ClCompile Include="Misc\Station.cpp" />
+    <ClCompile Include="Misc\UI.cpp" />
+    <ClCompile Include="Missions\Emergency_Mission.cpp" />
+    <ClCompile Include="Missions\Mission.cpp" />
+    <ClCompile Include="Missions\Mountaineous_Mission.cpp" />
+    <ClCompile Include="Missions\Polar_Mission.cpp" />
+    <ClCompile Include="Rovers\Emergency_Rover.cpp" />
+    <ClCompile Include="Rovers\Mountaineous_Rover.cpp" />
+    <ClCompile Include="Rovers\Polar_Rover.cpp" />
+    <ClCompile Include="Rovers\Rover.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CancelEvent.h" />
-    <ClInclude Include="Emergency_Mission.h" />
-    <ClInclude Include="Emergency_Rover.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="FormulationEvent.h" />
-    <ClInclude Include="IO.h" />
-    <ClInclude Include="Mission.h" />
-    <ClInclude Include="Mountaineous_Mission.h" />
-    <ClInclude Include="Mountaineous_Rover.h" />
-    <ClInclude Include="Polar_Mission.h" />
-    <ClInclude Include="Polar_Rover.h" />
-    <ClInclude Include="PromotionEvent.h" />
-    <ClInclude Include="Rover.h" />
-    <ClInclude Include="Station.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="Datastructures\PriQ ADT\Node.h" />
+    <ClInclude Include="Datastructures\PriQ ADT\PriQ.h" />
+    <ClInclude Include="Datastructures\PriQ ADT\QueueADT.h" />
+    <ClInclude Include="Datastructures\Queue ADT\LinkedQueue.h" />
+    <ClInclude Include="Datastructures\Queue ADT\Node.h" />
+    <ClInclude Include="Datastructures\Queue ADT\QueueADT.h" />
+    <ClInclude Include="Events\CancelEvent.h" />
+    <ClInclude Include="Events\Event.h" />
+    <ClInclude Include="Events\FormulationEvent.h" />
+    <ClInclude Include="Events\PromotionEvent.h" />
+    <ClInclude Include="Misc\IO.h" />
+    <ClInclude Include="Misc\Station.h" />
+    <ClInclude Include="Misc\UI.h" />
+    <ClInclude Include="Missions\Emergency_Mission.h" />
+    <ClInclude Include="Missions\Mission.h" />
+    <ClInclude Include="Missions\Mountaineous_Mission.h" />
+    <ClInclude Include="Missions\Polar_Mission.h" />
+    <ClInclude Include="Rovers\Emergency_Rover.h" />
+    <ClInclude Include="Rovers\Mountaineous_Rover.h" />
+    <ClInclude Include="Rovers\Polar_Rover.h" />
+    <ClInclude Include="Rovers\Rover.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

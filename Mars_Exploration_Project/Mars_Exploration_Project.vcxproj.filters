@@ -18,96 +18,117 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rover.cpp">
+    <ClCompile Include="Missions\Emergency_Mission.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Emergency_Rover.cpp">
+    <ClCompile Include="Missions\Mission.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Polar_Rover.cpp">
+    <ClCompile Include="Missions\Mountaineous_Mission.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mountaineous_Rover.cpp">
+    <ClCompile Include="Missions\Polar_Mission.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mission.cpp">
+    <ClCompile Include="Rovers\Emergency_Rover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Emergency_Mission.cpp">
+    <ClCompile Include="Rovers\Mountaineous_Rover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Polar_Mission.cpp">
+    <ClCompile Include="Rovers\Polar_Rover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mountaineous_Mission.cpp">
+    <ClCompile Include="Rovers\Rover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
+    <ClCompile Include="Misc\IO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FormulationEvent.cpp">
+    <ClCompile Include="Misc\Station.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PromotionEvent.cpp">
+    <ClCompile Include="Misc\UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CancelEvent.cpp">
+    <ClCompile Include="Events\CancelEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
+    <ClCompile Include="Events\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IO.cpp">
+    <ClCompile Include="Events\FormulationEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Station.cpp">
+    <ClCompile Include="Events\PromotionEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Datastructures\PriQ ADT\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Rover.h">
+    <ClInclude Include="Missions\Emergency_Mission.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Emergency_Rover.h">
+    <ClInclude Include="Missions\Mission.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polar_Rover.h">
+    <ClInclude Include="Missions\Mountaineous_Mission.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mountaineous_Rover.h">
+    <ClInclude Include="Missions\Polar_Mission.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mission.h">
+    <ClInclude Include="Rovers\Emergency_Rover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Emergency_Mission.h">
+    <ClInclude Include="Rovers\Mountaineous_Rover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polar_Mission.h">
+    <ClInclude Include="Rovers\Polar_Rover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mountaineous_Mission.h">
+    <ClInclude Include="Rovers\Rover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
+    <ClInclude Include="Misc\IO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FormulationEvent.h">
+    <ClInclude Include="Misc\Station.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PromotionEvent.h">
+    <ClInclude Include="Misc\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CancelEvent.h">
+    <ClInclude Include="Events\CancelEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
+    <ClInclude Include="Events\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IO.h">
+    <ClInclude Include="Events\FormulationEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Station.h">
+    <ClInclude Include="Events\PromotionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\PriQ ADT\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\PriQ ADT\PriQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\PriQ ADT\QueueADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\Queue ADT\LinkedQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\Queue ADT\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\Queue ADT\QueueADT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
