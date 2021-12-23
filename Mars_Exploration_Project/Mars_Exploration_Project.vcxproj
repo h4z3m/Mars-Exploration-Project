@@ -144,7 +144,6 @@
     <ClCompile Include="Events\FormulationEvent.cpp" />
     <ClCompile Include="Events\PromotionEvent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Misc\IO.cpp" />
     <ClCompile Include="Misc\Station.cpp" />
     <ClCompile Include="Misc\UI.cpp" />
     <ClCompile Include="Missions\Emergency_Mission.cpp" />
@@ -167,7 +166,6 @@
     <ClInclude Include="Events\Event.h" />
     <ClInclude Include="Events\FormulationEvent.h" />
     <ClInclude Include="Events\PromotionEvent.h" />
-    <ClInclude Include="Misc\IO.h" />
     <ClInclude Include="Misc\Station.h" />
     <ClInclude Include="Misc\UI.h" />
     <ClInclude Include="Missions\Emergency_Mission.h" />
