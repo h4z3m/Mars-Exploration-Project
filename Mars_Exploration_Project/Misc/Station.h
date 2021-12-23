@@ -33,8 +33,8 @@ private:
 	LinkedQueue<Rover*> InCheckupMountainRovers;
 	//Private Utility Functions
 	
-	bool IO_ReadFile(PriQ<Event>*& ReturnList);
-	bool IO_OutputFile(PriQ<Event>*& OutputList);
+	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
+	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
 	public:
 	Station();
 	//Public Member Functions

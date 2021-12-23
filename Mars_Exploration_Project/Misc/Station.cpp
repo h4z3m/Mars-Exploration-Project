@@ -2,16 +2,16 @@
 
 Station::Station()
 {
+	App.UI_printString((const char*)"Constructor of Station class");
 	//Initialize current day to 1 at start-up
 	current_day = 1;
+	IO_ReadFile(Events);
 	//TODO Load from i/p file
 	
 
-
-
 }
 
-bool Station::IO_ReadFile(PriQ<Event>*& ReturnList)
+bool Station::IO_ReadFile(LinkedQueue<Event*> & ReturnList)
 {
 
 	App.UI_printString((const char*)"Enter filename (including ext): ");
@@ -21,16 +21,14 @@ bool Station::IO_ReadFile(PriQ<Event>*& ReturnList)
 	//Failed to open file
 	if (!file.is_open()) {
 		return false;
-	}
+	}                                 
 	else {
 		//Start loading data into event lists
-
-
 
 	}
 }
 
-bool Station::IO_OutputFile(PriQ<Event>*& OutputList)
+bool Station::IO_OutputFile(LinkedQueue<Event*>*& OutputList)
 {
 	return false;
 }
