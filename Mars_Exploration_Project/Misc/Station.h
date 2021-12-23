@@ -16,13 +16,13 @@ private:
 	
 	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
 	typedef int Event;
-	typedef int Mission;
+
 	/// </summary>
 	uint16_t current_day;
 
 	LinkedQueue<Event*> Events;
 
-	PriQ<Mission*> InExecutionMissions;
+	PriQ<Rover*> InExecutionRovers;
 
 	PriQ<Rover*> PolarRovers;
 	PriQ<Rover*> EmergencyRovers;
@@ -39,7 +39,22 @@ private:
 	Station();
 	//Public Member Functions
 	~Station();
+	void pair(Mission mission, Rover rover) {
+		char rover_type = rover.get_rover_type();
+		Mission *temp_mission;
+		Rover *temp_rover;
+		int piority;
+		int speed_of_rover = rover.get_speed();
+		int mission_duration = mission.get_mission_duration();
+		int mission_location = mission.get_target_location();
+		piority = current_day+ mission_duration+(2*((mission_location/speed_of_rover)/25));
 
+		if (rover_type == 'p')
+		{
+			PolarRovers.dequeue(temp_rover);
+			InExecutionRovers.enqueue(temp_rover,piority);
+		}
+	};
 
 
 };
