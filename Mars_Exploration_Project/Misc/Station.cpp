@@ -2,22 +2,22 @@
 
 Station::Station()
 {
-	App.UI_printString((const char*)"Constructor of Station class");
-	//Initialize current day to 1 at start-up
 	current_day = 1;
+	App.UI_printString((const char*)"Constructor of Station class");
 	IO_ReadFile(Events);
-	//TODO Load from i/p file
+
 	
 
 }
 
 bool Station::IO_ReadFile(LinkedQueue<Event*> & ReturnList)
 {
-
+	//Get file name from user
 	App.UI_printString((const char*)"Enter filename (including ext): ");
 	fileName = App.UI_getString();
-
 	file.open(fileName);
+	//Start parsing file
+	string stline;
 	//Failed to open file
 	if (!file.is_open()) {
 		return false;
