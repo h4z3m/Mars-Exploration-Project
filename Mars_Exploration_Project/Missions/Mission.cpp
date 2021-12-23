@@ -1,1 +1,50 @@
 #include "Mission.h"
+
+Mission::Mission(char input_mission_type, int input_formulation_day, int input_target_location, int input_mission_duration, int input_significance)
+{
+	type = input_mission_type;
+	formulation_day = input_formulation_day;
+	target_location = input_target_location;
+	mission_duration = input_mission_duration;
+	significance = input_significance;
+}
+
+void Mission::set_formulation_day(int input_formulation_day)
+{
+	formulation_day = input_formulation_day;
+}
+
+int Mission::get_formulation_day()
+{
+	return formulation_day;
+}
+
+void Mission::set_target_location(int input_target_location)
+{
+	target_location = input_target_location;
+}
+
+int Mission::get_target_location()
+{
+	return target_location;
+}
+
+void Mission::set_mission_duration(int input_mission_duration)
+{
+	mission_duration = input_mission_duration;
+}
+
+int Mission::get_mission_duration()
+{
+	return mission_duration;
+}
+
+void Mission::set_significance(int input_significance)
+{
+	significance = input_significance;
+}
+
+int Mission::get_significance()
+{
+	return significance;
+}
