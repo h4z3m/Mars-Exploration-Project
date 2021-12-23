@@ -7,6 +7,23 @@
 #include "../Rovers/Rover.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
+/*
+* Class: Station
+* 
+* Description:
+* 
+* This class is the maestro class that manages the system. It should have member functions to:
+*	1- At program startup, open the input file and load rovers data to fill rovers list(s) and to load
+*	the events list.
+*	2- One each day,
+*	a. Execute the events that should be executed at that day
+*	b. Check waiting mission to assign them to available rovers
+*	c. Move missions from waiting to in-execution to completed
+*	d. Move rovers from available to in-execution to checkup to available again
+*	e. Collect statistics that are needed to create output file
+*	f. Calls UI class functions to print day details on the output screen
+*	3- Produce the output file at the end of simulation
+*/
 class Station
 {
 private:
@@ -32,10 +49,17 @@ private:
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
 	//Private Utility Functions
-
-	bool IO_ReadFile(PriQ<Event>*& ReturnList);
-	bool IO_OutputFile(PriQ<Event>*& OutputList);
+	
+	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
+	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
 	public:
+	/*
+	* Function: Station (Constructor)
+	* Description: 
+	*	1. Read input file at startup
+	*	2. Load events, rovers, and mission queues
+	*		
+	*/
 	Station();
 	//Public Member Functions
 	~Station();
