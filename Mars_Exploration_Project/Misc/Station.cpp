@@ -68,3 +68,45 @@ bool Station::IO_OutputFile(LinkedQueue<Event*>*& OutputList)
 Station::~Station()
 {
 }
+
+void Station::pair(Mission mission, Rover rover)
+{
+	char rover_type = rover.get_rover_type();
+	char mission_type = mission.get_mission_type();
+	Mission* temp_mission;
+	Rover* temp_rover;
+	int piority;
+	int speed_of_rover = rover.get_speed();
+	int mission_duration = mission.get_mission_duration();
+	int mission_location = mission.get_target_location();
+	piority = current_day + mission_duration + (2 * ((mission_location / speed_of_rover) / 25));
+
+	if (rover_type == 'p')
+	{
+		PolarRovers.dequeue(temp_rover);
+		InExecutionRovers.enqueue(temp_rover, -piority);
+	}
+	else if (rover_type == 'e')
+	{
+		EmergencyRovers.dequeue(temp_rover);
+		InExecutionRovers.enqueue(temp_rover, -piority);
+
+	}
+	else if (rover_type == 'm')
+	{
+		MountainRovers.dequeue(temp_rover);
+		InExecutionRovers.enqueue(temp_rover, -piority);
+	}
+
+	if (mission_type == 'p')
+	{
+		PolarMissions.dequeue(temp_mission);
+		rover.set_mission(temp_mission);
+	}
+	else if (mission_type == 'e')
+	{
+		EmergencyMissions.dequeue(temp_mission);
+		rover.set_mission(temp_mission);
+	}
+	///add for mountain after including linked list
+}

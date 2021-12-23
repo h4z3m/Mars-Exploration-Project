@@ -33,7 +33,7 @@ private:
 	
 	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
 	typedef int Event;
-	typedef int Mission;
+
 	/// </summary>
 	unsigned int current_day;
 	unsigned int total_Erovers;
@@ -53,7 +53,7 @@ private:
 	unsigned int AutoPromotionLimit;
 	unsigned int EventCount;
 	LinkedQueue<Event*> Events;
-
+	////////ROVERS/////////
 	PriQ<Rover*> InExecutionRovers;
 
 	PriQ<Rover*> PolarRovers;
@@ -63,6 +63,10 @@ private:
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
+
+	////////MISSIONS////////////
+	PriQ<Mission*> EmergencyMissions;
+	LinkedQueue<Mission*> PolarMissions;
 	//Private Utility Functions
 	
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
@@ -78,7 +82,7 @@ private:
 	Station();
 	//Public Member Functions
 	~Station();
-
+	void pair(Mission mission, Rover rover);
 
 
 };

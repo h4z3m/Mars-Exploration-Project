@@ -1,5 +1,15 @@
 #include "Mission.h"
 
+Mission::Mission()
+{
+	type = 'p';
+	formulation_day = 1;
+	target_location = 1;
+	mission_duration = 1;
+	significance = 1;
+
+}
+
 Mission::Mission(char input_mission_type, int input_formulation_day, int input_target_location, int input_mission_duration, int input_significance)
 {
 	type = input_mission_type;
@@ -17,6 +27,16 @@ void Mission::set_formulation_day(int input_formulation_day)
 int Mission::get_formulation_day()
 {
 	return formulation_day;
+}
+
+void Mission::set_mission_type(char input_mission_type)
+{
+	type = input_mission_type;
+}
+
+char Mission::get_mission_type()
+{
+	return type;
 }
 
 void Mission::set_target_location(int input_target_location)

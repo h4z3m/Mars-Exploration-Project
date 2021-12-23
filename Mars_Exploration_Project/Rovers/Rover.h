@@ -8,8 +8,9 @@ private:
 	char rover_type;
 	int initial_time_till_checkup;
 	int actual_time_till_checkup;
-	Mission *mission;
+	Mission *mission = nullptr;
 public:
+	Rover();
 	Rover(int input_checkup_duration,int input_speed,char input_rover_type,int input_initial_time_till_checkup);
 	void set_speed(int input_speed);
 	int get_speed();

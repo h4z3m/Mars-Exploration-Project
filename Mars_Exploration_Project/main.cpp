@@ -20,7 +20,10 @@
 */
 
 
-#include "Misc/Station.h"
+#include "Datastructures/Queue ADT/LinkedQueue.h"
+
+#include "Datastructures/PriQ ADT/PriQ.h"
+
 #include <iostream>
 using namespace std;	
 
@@ -30,9 +33,11 @@ using namespace std;
 ///////////////////////////////////
 int main()
 {
-	Station S;
+	PriQ<int> q;
+	q.enqueue(5, 3);
 	
 
+	cin.get();
 	return 0;
 }
 
