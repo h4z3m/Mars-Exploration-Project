@@ -7,7 +7,7 @@ IO::IO()
 
 bool IO::IO_ReadFile(PriQ<Event>*& ReturnList)
 {
-	U
+	
 	file.open(fileName);
 	//Failed to open file
 	if (!file.is_open()) {

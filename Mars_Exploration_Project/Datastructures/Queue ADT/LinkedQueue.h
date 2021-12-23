@@ -48,7 +48,7 @@ using namespace std;
 
 
 template <typename T>
-class LinkedQueue :public PQueueADT<T>
+class LinkedQueue :public QueueADT<T>
 {
 private:
 

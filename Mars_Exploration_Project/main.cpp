@@ -22,6 +22,7 @@
 
 #include "Datastructures/Queue ADT/LinkedQueue.h"
 
+#include "Datastructures/PriQ ADT/PriQ.h"
 
 #include <iostream>
 using namespace std;	
@@ -32,9 +33,9 @@ using namespace std;
 ///////////////////////////////////
 int main()
 {
-	LinkedQueue<int> P;
-
-	P.enqueue(5);
+	PriQ<int> q;
+	q.enqueue(5, 3);
+	
 
 	return 0;
 }
