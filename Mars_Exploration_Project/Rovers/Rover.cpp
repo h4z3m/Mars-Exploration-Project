@@ -63,5 +63,10 @@ void Rover::reset_actual_time_till_checkup()
 	actual_time_till_checkup = initial_time_till_checkup;
 }
 
+void Rover::set_mission(Mission* inexecution_mission)
+{
+	mission = inexecution_mission;
+}
+
 
 
