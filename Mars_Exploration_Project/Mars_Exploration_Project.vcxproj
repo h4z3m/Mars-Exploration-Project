@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Datastructures\PriQ ADT\test.cpp" />
     <ClCompile Include="Events\CancelEvent.cpp" />
     <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="Events\FormulationEvent.cpp" />

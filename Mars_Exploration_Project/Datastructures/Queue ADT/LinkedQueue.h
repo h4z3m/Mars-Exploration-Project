@@ -38,7 +38,7 @@ frontPtr	 backPtr
 
 */
 
-#ifndef LINKED_QUEUE_
+//#ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
 
 #include "Node.h"

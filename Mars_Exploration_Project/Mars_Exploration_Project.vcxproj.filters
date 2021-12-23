@@ -63,9 +63,6 @@
     <ClCompile Include="Events\PromotionEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Datastructures\PriQ ADT\test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Missions\Emergency_Mission.h">
