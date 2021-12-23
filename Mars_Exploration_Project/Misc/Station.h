@@ -35,8 +35,23 @@ private:
 	typedef int Event;
 	typedef int Mission;
 	/// </summary>
-	uint16_t current_day;
+	unsigned int current_day;
+	unsigned int total_Erovers;
+	unsigned int total_Provers;
+	unsigned int total_Mrovers;
 
+	unsigned int M_Rover_Speed;
+	unsigned int P_Rover_Speed;
+	unsigned int E_Rover_Speed;
+
+	unsigned int Rover_Max_Missions;
+	
+	unsigned int M_Rover_InCheckupDuration;
+	unsigned int P_Rover_InCheckupDuration;
+	unsigned int E_Rover_InCheckupDuration;
+
+	unsigned int AutoPromotionLimit;
+	unsigned int EventCount;
 	LinkedQueue<Event*> Events;
 
 	PriQ<Rover*> InExecutionRovers;

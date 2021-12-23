@@ -14,6 +14,4 @@ public:
 	void UI_Interactive_Mode(void);
 	void UI_Step_By_Step(void);
 	void UI_Silent_Mode(void);
-
-
 };
