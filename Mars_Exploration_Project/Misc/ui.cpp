@@ -1,6 +1,6 @@
 #include "UI.h"
 
-void UI::UI_printString(string &st)
+void UI::UI_printString(const string &st)
 {
 	cout << st << endl;
 

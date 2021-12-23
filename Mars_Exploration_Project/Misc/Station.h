@@ -32,7 +32,7 @@ private:
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
 	//Private Utility Functions
-
+	
 	bool IO_ReadFile(PriQ<Event>*& ReturnList);
 	bool IO_OutputFile(PriQ<Event>*& OutputList);
 	public:

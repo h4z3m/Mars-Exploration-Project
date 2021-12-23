@@ -11,11 +11,11 @@ Station::Station()
 
 }
 
-bool IO::IO_ReadFile(PriQ<Event>*& ReturnList)
+bool Station::IO_ReadFile(PriQ<Event>*& ReturnList)
 {
 
-	UI_printString((string*)"Enter filename (including ext): ");
-	filename = UI_getString();
+	App.UI_printString((const char*)"Enter filename (including ext): ");
+	fileName = App.UI_getString();
 
 	file.open(fileName);
 	//Failed to open file
@@ -30,7 +30,7 @@ bool IO::IO_ReadFile(PriQ<Event>*& ReturnList)
 	}
 }
 
-bool IO::IO_OutputFile(PriQ<Event>*& OutputList)
+bool Station::IO_OutputFile(PriQ<Event>*& OutputList)
 {
 	return false;
 }

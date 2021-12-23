@@ -8,7 +8,7 @@ private:
 
 public:
 
-	void UI_printString(string &st);
+	void UI_printString(const char &st);
 	string UI_getString();
 	char UI_getChar();
 	void UI_Interactive_Mode(void);
