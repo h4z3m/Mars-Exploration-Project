@@ -1,38 +1,38 @@
 
-#ifndef _NODE
-#define _NODE
+#ifndef _PNODE
+#define _PNODE
 template < typename T>
-class Node
+class PriNode
 {
 private :
 	T item; // A data item
 	int priority; // an item priority
-	Node<T>* next; // Pointer to next node
+	PriNode<T>* next; // Pointer to next node
 public :
-	Node();
-	Node( const T & r_Item, int p =-1);	
-	Node( const T & r_Item, Node<T>* nextNodePtr);
+	PriNode();
+	PriNode( const T & r_Item, int p =-1);	
+	PriNode( const T & r_Item, PriNode<T>* nextNodePtr);
 	void setItem( const T & r_Item);
-	void setPrio(const T& r_Prio);
-	void setNext(Node<T>* nextNodePtr);
+	void setPrio(const int& r_Prio);
+	void setNext(PriNode<T>* nextNodePtr);
 	T getItem() const ;
 	int getPrio() const
 	{
 		return priority;
 	}
-	Node<T>* getNext() const ;
+	PriNode<T>* getNext() const ;
 }; // end Node
 #endif
 
 template < typename T>
-Node<T>::Node() 
+PriNode<T>::PriNode() 
 {
 	priority = -1;
 	next = nullptr;
 } 
 
 template < typename T>
-Node<T>::Node( const T& r_Item, int p)
+PriNode<T>::PriNode( const T& r_Item, int p)
 {
 	item = r_Item;
 	next = nullptr;
@@ -40,31 +40,31 @@ Node<T>::Node( const T& r_Item, int p)
 } 
 
 template < typename T>
-Node<T>::Node( const T& r_Item, Node<T>* nextNodePtr)
+PriNode<T>::PriNode( const T& r_Item, PriNode<T>* nextNodePtr)
 {
 	item = r_Item;
 	next = nextNodePtr;
 }
 template < typename T>
-void Node<T>::setItem( const T& r_Item)
+void PriNode<T>::setItem( const T& r_Item)
 {
 	item = r_Item;
 } 
 
 template < typename T>
-void Node<T>::setPrio(const T& r_Prio)
+void PriNode<T>::setPrio(const int& r_Prio)
 {
 	priority = r_Prio;
 }
 
 template < typename T>
-void Node<T>::setNext(Node<T>* nextNodePtr)
+void PriNode<T>::setNext(PriNode<T>* nextNodePtr)
 {
 	next = nextNodePtr;
 } 
 
 template < typename T>
-T Node<T>::getItem() const
+T PriNode<T>::getItem() const
 {
 	return item;
 } 
@@ -76,7 +76,7 @@ T Node<T>::getItem() const
 //}
 
 template < typename T>
-Node<T>* Node<T>::getNext() const
+PriNode<T>* PriNode<T>::getNext() const
 {
 	return next;
 } 

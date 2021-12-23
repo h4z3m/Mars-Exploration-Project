@@ -157,9 +157,9 @@
     <ClCompile Include="Rovers\Rover.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Datastructures\PriQ ADT\Node.h" />
+    <ClInclude Include="Datastructures\PriQ ADT\PriNode.h" />
     <ClInclude Include="Datastructures\PriQ ADT\PriQ.h" />
-    <ClInclude Include="Datastructures\PriQ ADT\QueueADT.h" />
+    <ClInclude Include="Datastructures\PriQ ADT\PQueueADT.h" />
     <ClInclude Include="Datastructures\Queue ADT\LinkedQueue.h" />
     <ClInclude Include="Datastructures\Queue ADT\Node.h" />
     <ClInclude Include="Datastructures\Queue ADT\QueueADT.h" />

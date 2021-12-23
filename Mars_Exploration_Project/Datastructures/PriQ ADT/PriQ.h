@@ -38,27 +38,27 @@ frontPtr	 backPtr
 
 */
 
-#ifndef LINKED_QUEUE_
-#define LINKED_QUEUE_
+#ifndef PLINKED_QUEUE_
+#define PLINKED_QUEUE_
 
-#include "Node.h"
-#include "QueueADT.h"
+#include "PriNode.h"
+#include "PQueueADT.h"
 using namespace std;
 
 
 template <typename T>
-class PriQ :public QueueADT<T>
+class PriQ :public PQueueADT<T>
 {
 private:
 
-	Node<T>* backPtr;
-	Node<T>* frontPtr;
+	PriNode<T>* backPtr;
+	PriNode<T>* frontPtr;
 
 public:
 	PriQ();
-	Node<T>* newNode(T& d, T& p);
+	PriNode<T>* newNode(T& d, int& p);
 	bool isEmpty() const;
-	bool enqueue(const T& data, const T& priority);
+	bool enqueue(const T& data, const int& priority);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	~PriQ();
@@ -116,12 +116,12 @@ Output: True if the operation is successful; otherwise false.
 */
 
 template <typename T>
-bool PriQ<T>::enqueue(const T& data, const T& priority)
+bool PriQ<T>::enqueue(const T& data, const int & priority)
 {
-	Node<T>* start = frontPtr;
+	PriNode<T>* start = frontPtr;
 
 	// Create new Node
-	Node<T>* temp = new Node<T>(data, priority);
+	PriNode<T>* temp = new PriNode<T>(data, priority);
 	if (!frontPtr) {
 		frontPtr = temp;
 		frontPtr->setPrio(priority);
@@ -188,7 +188,7 @@ bool PriQ<T>::dequeue(T& frntEntry)
 	if (isEmpty())
 		return false;
 
-	Node<T>* nodeToDeletePtr = frontPtr;
+	PriNode<T>* nodeToDeletePtr = frontPtr;
 	frntEntry = frontPtr->getItem();
 	frontPtr = frontPtr->getNext();
 	// Queue is not empty; remove front
@@ -245,7 +245,7 @@ Output: none
 template <typename T>
 PriQ<T>::PriQ(const PriQ<T> & LQ)
 {
-	Node<T>* NodePtr = LQ.frontPtr;
+	PriNode<T>* NodePtr = LQ.frontPtr;
 	if (!NodePtr) //LQ is empty
 	{
 		frontPtr = backPtr = nullptr;
@@ -253,14 +253,14 @@ PriQ<T>::PriQ(const PriQ<T> & LQ)
 	}
 
 	//insert the first node
-	Node<T>* ptr = new Node<T>(NodePtr->getItem());
+	PriNode<T>* ptr = new PriNode<T>(NodePtr->getItem());
 	frontPtr = backPtr = ptr;
 	NodePtr = NodePtr->getNext();
 
 	//insert remaining nodes
 	while (NodePtr)
 	{
-		Node<T>* ptr = new Node<T>(NodePtr->getItem());
+		PriNode<T>* ptr = new PriNode<T>(NodePtr->getItem());
 		backPtr->setNext(ptr);
 		backPtr = ptr;
 		NodePtr = NodePtr->getNext();

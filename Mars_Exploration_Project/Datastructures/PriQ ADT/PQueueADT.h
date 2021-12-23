@@ -3,11 +3,11 @@
 //  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
 
 /** @file QueueADT.h */
-#ifndef QUEUE_ADT_
-#define QUEUE_ADT_
+#ifndef PQUEUE_ADT_
+#define PQUEUE_ADT_
 
 template<class T>
-class QueueADT
+class PQueueADT
 {
 public:
    /** Sees whether this queue is empty.
@@ -19,7 +19,7 @@ public:
        back of the queue.
     @param newEntry  The object to be added as a new entry.
     @return  True if the addition is successful or false if not. */
-   virtual bool enqueue(const T& data, const T& priority) = 0;
+   virtual bool enqueue(const T& data, const int& priority) = 0;
    
    /** Copies the front item of the queue to the passed parameter and removes it from queue
     @post  If the operation was successful, the front of the queue
@@ -35,6 +35,6 @@ public:
    virtual bool peek(T& FrontEntry) const = 0;
    
    /** Destroys this queue and frees its memory. */
-   virtual ~QueueADT() { }
+   virtual ~PQueueADT() { }
 }; // end QueueADT
 #endif

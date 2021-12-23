@@ -110,13 +110,13 @@
     <ClInclude Include="Events\PromotionEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Datastructures\PriQ ADT\Node.h">
+    <ClInclude Include="Datastructures\PriQ ADT\PriNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Datastructures\PriQ ADT\PriQ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Datastructures\PriQ ADT\QueueADT.h">
+    <ClInclude Include="Datastructures\PriQ ADT\PQueueADT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Datastructures\Queue ADT\LinkedQueue.h">

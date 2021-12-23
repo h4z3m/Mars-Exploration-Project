@@ -7,38 +7,38 @@ a frontPtr pointer for the front of the queue and a backPtr pointer for the back
 
 /*
 
-The Node: item of type T and a "next" pointer
--------------
-| item| next | --->
--------------
+				The Node: item of type T and a "next" pointer
+					-------------
+					| item| next | --->
+					-------------
 General Queue case:
 
-frontPtr																backPtr
-\											   						/
-\											  					   /
-------------- 	  ------------- 	  ------------- 	  -------------
-| item| next |--->| item| next |--->  | item| next |--->  | item| next |---> NULL
-------------- 	  ------------- 	  ------------- 	  -------------
+				 frontPtr																backPtr
+					\											   						/
+					 \											  					   /
+					------------- 	  ------------- 	  ------------- 	  -------------
+					| item| next |--->| item| next |--->  | item| next |--->  | item| next |---> NULL
+					------------- 	  ------------- 	  ------------- 	  -------------
 
 Empty Case:
 
-frontptr	 backptr
-\	 /
-\	/
----- NULL ------
+				 frontptr	 backptr
+						\	 /
+						 \	/
+					---- NULL ------
 
 
 Single Node Case:
-frontPtr	 backPtr
-\		/
-\	   /
------------
-|item| next| -->NULL
------------
+				 frontPtr	 backPtr
+					\		/
+					 \	   /
+					-----------
+					|item| next| -->NULL
+					-----------
 
 */
 
-//#ifndef LINKED_QUEUE_
+#ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
 
 #include "Node.h"
@@ -48,7 +48,7 @@ using namespace std;
 
 
 template <typename T>
-class LinkedQueue :public QueueADT<T>
+class LinkedQueue :public PQueueADT<T>
 {
 private:
 
@@ -63,7 +63,7 @@ public:
 	~LinkedQueue();
 
 	//copy constructor
-	LinkedQueue(const LinkedQueue<T> & LQ);
+	LinkedQueue(const LinkedQueue<T>& LQ);
 };
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,15 +119,15 @@ bool LinkedQueue<T>::enqueue(const T& newEntry)
 } // end enqueue
 
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*Function: dequeue
-  Removes the front of this queue. That is, removes the item that was added
-  earliest.
+/*Function: dequeue
+Removes the front of this queue. That is, removes the item that was added
+earliest.
 
-  Input: None.
-  Output: True if the operation is successful; otherwise false.
-  */
+Input: None.
+Output: True if the operation is successful; otherwise false.
+*/
 
 template <typename T>
 bool LinkedQueue<T>::dequeue(T& frntEntry)
@@ -190,7 +190,7 @@ Output: none
 */
 
 template <typename T>
-LinkedQueue<T>::LinkedQueue(const LinkedQueue<T> & LQ)
+LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 {
 	Node<T>* NodePtr = LQ.frontPtr;
 	if (!NodePtr) //LQ is empty
