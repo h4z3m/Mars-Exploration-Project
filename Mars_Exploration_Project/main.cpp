@@ -42,8 +42,10 @@ int main()
 	m1.set_mission_duration(6);
 	m1.set_target_location(150);
 	Station station1;
-	station1.pair(m1, r1);
+	station1.pair(&m1, &r1);
 
+	station1.App.print_mission_info(&m1);
+	station1.App.print_rover_info(&r1);
 
 	cin.get();
 	return 0;

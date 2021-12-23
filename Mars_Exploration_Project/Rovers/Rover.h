@@ -28,5 +28,7 @@ public:
 	void reset_actual_time_till_checkup();
 
 	void set_mission(Mission* inexecution_mission);
+
+	int get_mission_id();
 };
 

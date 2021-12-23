@@ -27,7 +27,6 @@
 class Station
 {
 private:
-	UI App;
 	ifstream file;
 	string fileName;
 	
@@ -57,6 +56,7 @@ private:
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
 	public:
+		UI App;
 	/*
 	* Function: Station (Constructor)
 	* Description: 
@@ -67,7 +67,7 @@ private:
 	Station();
 	//Public Member Functions
 	~Station();
-	void pair(Mission mission, Rover rover);
+	void pair(Mission *mission, Rover *rover);
 
 
 };
