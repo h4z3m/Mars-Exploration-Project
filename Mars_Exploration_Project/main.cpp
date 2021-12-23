@@ -19,7 +19,9 @@
 * Date Created:  17/12/2021
 */
 
-
+#include "Misc/Station.h"
+#include "Missions/Mission.h"
+#include "Rovers/Rover.h"
 #include "Datastructures/Queue ADT/LinkedQueue.h"
 
 #include "Datastructures/PriQ ADT/PriQ.h"
@@ -33,10 +35,17 @@ using namespace std;
 ///////////////////////////////////
 int main()
 {
-	PriQ<int> q;
-	q.enqueue(5, 3);
 	
+	Rover r1;
+	Mission m1;
+	r1.set_speed(50);
+	m1.set_mission_duration(6);
+	m1.set_target_location(150);
+	Station station1;
+	station1.pair(m1, r1);
 
+
+	cin.get();
 	return 0;
 }
 

@@ -38,7 +38,7 @@ private:
 	uint16_t current_day;
 
 	LinkedQueue<Event*> Events;
-
+	////////ROVERS/////////
 	PriQ<Rover*> InExecutionRovers;
 
 	PriQ<Rover*> PolarRovers;
@@ -48,6 +48,10 @@ private:
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
+
+	////////MISSIONS////////////
+	PriQ<Mission*> EmergencyMissions;
+	LinkedQueue<Mission*> PolarMissions;
 	//Private Utility Functions
 	
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
@@ -63,22 +67,7 @@ private:
 	Station();
 	//Public Member Functions
 	~Station();
-	void pair(Mission mission, Rover rover) {
-		char rover_type = rover.get_rover_type();
-		Mission *temp_mission;
-		Rover *temp_rover;
-		int piority;
-		int speed_of_rover = rover.get_speed();
-		int mission_duration = mission.get_mission_duration();
-		int mission_location = mission.get_target_location();
-		piority = current_day+ mission_duration+(2*((mission_location/speed_of_rover)/25));
-
-		if (rover_type == 'p')
-		{
-			PolarRovers.dequeue(temp_rover);
-			InExecutionRovers.enqueue(temp_rover,piority);
-		}
-	};
+	void pair(Mission mission, Rover rover);
 
 
 };
