@@ -6,7 +6,7 @@ Rover::Rover()
 {
 	checkup_duration = 1;
 	speed = 1;
-	rover_type = 'p';
+	rover_type = 'P';
 	initial_time_till_checkup = 1;
 	actual_time_till_checkup = 1;
 }
@@ -75,6 +75,21 @@ void Rover::reset_actual_time_till_checkup()
 void Rover::set_mission(Mission* inexecution_mission)
 {
 	mission = inexecution_mission;
+}
+
+Mission* Rover::get_mission()
+{
+	return mission;
+}
+
+
+int Rover::get_mission_id()
+{
+	if (!mission)
+	{
+		return 0;
+	}
+	return mission->get_id();
 }
 
 

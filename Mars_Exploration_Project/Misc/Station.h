@@ -30,10 +30,12 @@
 class Station
 {
 private:
-	UI App;
 	ifstream file;
 	string fileName;
-	
+	////STATS//
+	int E_completed_missions =0;
+	int M_completed_missions =0;
+	int P_completed_missions =0;
 	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
 	//typedef int Event;
 
@@ -58,19 +60,13 @@ private:
 	LinkedQueue<Event*> Events;
 	////////ROVERS/////////
 	PriQ<Rover*> InExecutionRovers;
-
-	PriQ<Rover*> PolarRovers;
-	PriQ<Rover*> EmergencyRovers;
-	PriQ<Rover*> MountainRovers;
-	
+	PriQ<Mission*> CompletedMissions;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
-
 	////////MISSIONS////////////
 	PriQ<Mission*> EmergencyMissions;
 	LinkedQueue<Mission*> PolarMissions;
-	LinkedList<Mission*> MountainMissions;
 	//Private Utility Functions
 	template<typename U,typename... Types>
 	U IO_ReadLine(ifstream file, U data1,Types... data2);
@@ -78,6 +74,15 @@ private:
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
 	public:
+		/// /return these private///
+		UI App;
+		
+		PriQ<Rover*> PolarRovers;
+		PriQ<Rover*> EmergencyRovers;
+		PriQ<Rover*> MountainRovers;
+		PriQ<Mission*> EmergencyMissions;
+		LinkedQueue<Mission*> PolarMissions;
+
 	/*
 	* Function: Station (Constructor)
 	* Description: 
@@ -88,7 +93,28 @@ private:
 	Station();
 	//Public Member Functions
 	~Station();
-	void pair(Mission mission, Rover rover);
+	void pair(Mission *mission, Rover *rover);
+	///////////Ending day of missions
+	int end_day(Mission* mission, Rover* rover);
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
+	int return_day_of_rover(Rover* rover);
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
+	//////////////STATS//////////////
+	int get_e_completed_missions();
+	int get_p_completed_missions();
+	int get_m_completed_missions();
+	void increment_e_completed_missions();
+	void increment_p_completed_missions();
+	void increment_m_completed_missions();
+	int get_total_completed_missions();
+	////////////////////STATS//////////////////
+	
+	///adding rovers to Pque
+	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
+	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
+	void add_mountains_rover(int input_number_of_rovers, int SM, int  CM, int N);
+	///////ADD MISSIONS
+	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
-
+	void retrieve_rover();
 };
