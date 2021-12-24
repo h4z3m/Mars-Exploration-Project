@@ -173,6 +173,19 @@ public:
 	bool isEmpty() {
 		return (Head == nullptr);
 	}
+
+	T getEntry(int position)
+	{
+		if ((position < 1) || (position > itemCount))
+		{
+			return nullptr;
+		}
+		Node<T>* nodePtr = getNodeAt(position);
+		return nodePtr->getItem();
+
+	}
+
+
 	
 };
 

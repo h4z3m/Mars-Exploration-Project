@@ -140,5 +140,11 @@ public:
 	/*remove to formulate class*/
 	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
+	Mission* GetRequestedMission(int Id);
+
+	void CancelMission(int ID);
+
+	void AddEmergencyMission(Mission* M, int Significance);
+
 	void retrieve_rover();
 };

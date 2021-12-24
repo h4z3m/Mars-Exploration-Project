@@ -1,5 +1,6 @@
 #include"FormulationEvent.h"
 #include "../Missions/Mission.h"
+
 FormulationEvent::FormulationEvent()
 {
 }
