@@ -79,6 +79,10 @@ void Rover::set_mission(Mission* inexecution_mission)
 
 int Rover::get_mission_id()
 {
+	if (!mission)
+	{
+		return 0;
+	}
 	return mission->get_id();
 }
 

@@ -80,3 +80,17 @@ void Station::pair(Mission* mission, Rover* rover)
 	rover->set_mission(mission);
 	///add for mountain after including linked list
 }
+
+void Station::add_polar_rover(int input_number_of_polar_rovers, int SP, int CP, int missions_till_checkup)
+{
+	Rover* temp_rover;
+	for (int i = 0; i < input_number_of_polar_rovers; i++)
+	{
+		temp_rover = new Rover(CP, SP, 'p', missions_till_checkup);
+		PolarRovers.enqueue(temp_rover,SP);
+		
+	}
+}
+
+
+

@@ -37,7 +37,10 @@ int main()
 {
 	
 	Rover r1;
+	Rover r2;
 	Mission m1;
+	Mission m2;
+	m2.set_id(3);
 	r1.set_speed(50);
 	m1.set_mission_duration(6);
 	m1.set_target_location(150);
@@ -46,6 +49,8 @@ int main()
 
 	station1.App.print_mission_info(&m1);
 	station1.App.print_rover_info(&r1);
+
+	station1.App.print_rover_info(&r2);
 
 	cin.get();
 	return 0;

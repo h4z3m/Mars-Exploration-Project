@@ -69,6 +69,9 @@ private:
 	~Station();
 	void pair(Mission *mission, Rover *rover);
 
+	///adding rovers to Pque
+	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int missions_till_checkup);
+
 
 };
 
