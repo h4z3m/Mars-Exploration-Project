@@ -44,7 +44,7 @@ int main()
 	Mission *m2;
 	Mission *m3;
 	Station home;
-	
+	/*
 	home.App.print_rover_info(&r1);
 	home.add_polar_rover(5, 99, 99, 99);
 	home.add_emergency_rover(3, 88, 88, 77);
@@ -71,6 +71,20 @@ int main()
 	home.PolarMissions.dequeue(m3);
 	home.App.print_mission_info(m3);
 	cin.get();
+	*/
+	home.add_emergency_rover(3, 88, 88, 77);
+	home.formulate_mission('E', 1, 1, 1, 1, 1);
+	home.EmergencyMissions.dequeue(m2);
+	home.EmergencyRovers.dequeue(r2);
+	home.App.print_mission_info(m2);
+	home.App.print_rover_info(r2);
+
+	home.pair(m2,r2);
+	home.App.print_mission_info(m2);
+	home.App.print_rover_info(r2);
+	home.retrieve_rover();
+	home.App.print_mission_info(m2);
+	home.App.print_rover_info(r2);
 	return 0;
 }
 

@@ -41,44 +41,36 @@ void Station::pair(Mission* mission, Rover* rover)
 {
 	char rover_type = rover->get_rover_type();
 	char mission_type = mission->get_mission_type();
+	int piority = end_day(mission,rover);
+	rover->set_mission(mission);
+	InExecutionRovers.enqueue(rover, piority);
+	
+	
+	///add for mountain after including linked list
+}
+
+
+
+int Station::return_day_of_rover(Rover* rover)
+{
 	Mission* temp_mission;
-	Rover* temp_rover;
+	temp_mission = rover->get_mission();
+	int piority;
+	int speed_of_rover = rover->get_speed();
+	int mission_duration = temp_mission->get_mission_duration();
+	int mission_location = temp_mission->get_target_location();
+	piority = current_day + mission_duration + (2 * ((mission_location / speed_of_rover) / 25));
+	return piority;
+}
+
+int Station::end_day(Mission* mission, Rover* rover)
+{
 	int piority;
 	int speed_of_rover = rover->get_speed();
 	int mission_duration = mission->get_mission_duration();
 	int mission_location = mission->get_target_location();
 	piority = current_day + mission_duration + (2 * ((mission_location / speed_of_rover) / 25));
-
-	if (rover_type == 'p')
-	{
-		PolarRovers.dequeue(temp_rover);
-		InExecutionRovers.enqueue(temp_rover, -piority);
-	}
-	else if (rover_type == 'e')
-	{
-		EmergencyRovers.dequeue(temp_rover);
-		InExecutionRovers.enqueue(temp_rover, -piority);
-
-	}
-	else if (rover_type == 'm')
-	{
-		MountainRovers.dequeue(temp_rover);
-		InExecutionRovers.enqueue(temp_rover, -piority);
-	}
-
-	if (mission_type == 'p')
-	{
-		PolarMissions.dequeue(temp_mission);
-		rover->set_mission(temp_mission);
-	}
-	else if (mission_type == 'e')
-	{
-		EmergencyMissions.dequeue(temp_mission);
-		rover->set_mission(temp_mission);
-	}
-
-	rover->set_mission(mission);
-	///add for mountain after including linked list
+	return piority;
 }
 
 void Station::add_polar_rover(int input_number_of_rovers, int SP, int CP, int N)
@@ -86,7 +78,7 @@ void Station::add_polar_rover(int input_number_of_rovers, int SP, int CP, int N)
 	Rover* temp_rover;
 	for (int i = 0; i < input_number_of_rovers; i++)
 	{
-		temp_rover = new Rover(CP, SP, 'p', N);
+		temp_rover = new Rover(CP, SP, 'P', N);
 		PolarRovers.enqueue(temp_rover,SP);
 		
 	}
@@ -97,7 +89,7 @@ void Station::add_emergency_rover(int input_number_of_rovers, int SE, int CE, in
 	Rover* temp_rover;
 	for (int i = 0; i < input_number_of_rovers; i++)
 	{
-		temp_rover = new Rover(CE, SE, 'e', N);
+		temp_rover = new Rover(CE, SE, 'E', N);
 		EmergencyRovers.enqueue(temp_rover, SE);
 
 	}
@@ -108,7 +100,7 @@ void Station::add_mountains_rover(int input_number_of_rovers, int SM, int CM, in
 	Rover* temp_rover;
 	for (int i = 0; i < input_number_of_rovers; i++)
 	{
-		temp_rover = new Rover(CM, SM, 'm', N);
+		temp_rover = new Rover(CM, SM, 'M', N);
 		MountainRovers.enqueue(temp_rover, SM);
 
 	}
@@ -130,6 +122,49 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	else if (type == 'P')
 	{
 		PolarMissions.enqueue(temp_mission);
+	}
+}
+
+void Station::retrieve_rover()
+{
+	Rover* temp_rover;
+	while (InExecutionRovers.peek(temp_rover) && return_day_of_rover(temp_rover)==2)
+	{
+		InExecutionRovers.dequeue(temp_rover);
+		CompletedMissions.enqueue(temp_rover->get_mission(), 1);
+		temp_rover->decrement_actual_time_till_checkup();
+		temp_rover->set_mission(nullptr);
+		if (temp_rover->get_actual_time_till_checkup() == 0)
+		{
+			if (temp_rover->get_rover_type() == 'M')
+			{
+				InCheckupMountainRovers.enqueue(temp_rover);
+			}
+			else if (temp_rover->get_rover_type() == 'E') 
+			{
+				InCheckupEmergencyRovers.enqueue(temp_rover);
+			}
+			else
+			{
+				InCheckupPolarRovers.enqueue(temp_rover);
+			}
+		}
+		else 
+		{
+			if (temp_rover->get_rover_type() == 'M')
+			{
+				MountainRovers.enqueue(temp_rover, temp_rover->get_speed());
+			}
+			else if (temp_rover->get_rover_type() == 'E')
+			{
+				EmergencyRovers.enqueue(temp_rover, temp_rover->get_speed());
+			}
+			else
+			{
+				PolarRovers.enqueue(temp_rover,temp_rover->get_speed());
+			}
+		
+		}
 	}
 }
 

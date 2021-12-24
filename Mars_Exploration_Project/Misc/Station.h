@@ -39,6 +39,8 @@ private:
 	LinkedQueue<Event*> Events;
 	////////ROVERS/////////
 	PriQ<Rover*> InExecutionRovers;
+
+	PriQ<Mission*> CompletedMissions;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
@@ -70,7 +72,13 @@ private:
 	//Public Member Functions
 	~Station();
 	void pair(Mission *mission, Rover *rover);
+	///////////Ending day of missions
 
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOW/////////////
+	int return_day_of_rover(Rover* rover);
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOW/////////////
+
+	int end_day(Mission* mission, Rover* rover);
 	///adding rovers to Pque
 	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
 	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
@@ -78,5 +86,6 @@ private:
 	///////ADD MISSIONS
 	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
+	void retrieve_rover();
 };
 
