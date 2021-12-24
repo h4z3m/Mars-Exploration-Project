@@ -78,13 +78,19 @@ int main()
 	home.EmergencyRovers.dequeue(r2);
 	home.App.print_mission_info(m2);
 	home.App.print_rover_info(r2);
-
+	int x = home.get_total_completed_missions();
+	cout << x;
 	home.pair(m2,r2);
 	home.App.print_mission_info(m2);
 	home.App.print_rover_info(r2);
 	home.retrieve_rover();
 	home.App.print_mission_info(m2);
 	home.App.print_rover_info(r2);
+	x = home.get_total_completed_missions();
+	int y = home.get_p_completed_missions();
+	int z = home.get_e_completed_missions();
+	cout << x<<y<<z;
 	return 0;
+	
 }
 

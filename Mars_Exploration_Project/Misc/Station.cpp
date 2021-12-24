@@ -62,7 +62,43 @@ int Station::return_day_of_rover(Rover* rover)
 	piority = current_day + mission_duration + (2 * ((mission_location / speed_of_rover) / 25));
 	return piority;
 }
+///////////////////STATS////////////////////
+int Station::get_e_completed_missions()
+{
+	return E_completed_missions;
+}
 
+int Station::get_p_completed_missions()
+{
+	return P_completed_missions;
+}
+
+int Station::get_m_completed_missions()
+{
+	return M_completed_missions;
+}
+
+void Station::increment_e_completed_missions()
+{
+	E_completed_missions++;
+}
+
+void Station::increment_p_completed_missions()
+{
+	P_completed_missions++;
+}
+
+void Station::increment_m_completed_missions()
+{
+	M_completed_missions++;
+}
+
+int Station::get_total_completed_missions()
+{
+	return E_completed_missions+P_completed_missions+M_completed_missions;
+}
+
+/// ////////////////////////STATS//////////////////////
 int Station::end_day(Mission* mission, Rover* rover)
 {
 	int piority;
@@ -128,11 +164,13 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 void Station::retrieve_rover()
 {
 	Rover* temp_rover;
+	Mission* temp_mission;
 	while (InExecutionRovers.peek(temp_rover) && return_day_of_rover(temp_rover)==2)
 	{
 		InExecutionRovers.dequeue(temp_rover);
 		CompletedMissions.enqueue(temp_rover->get_mission(), 1);
 		temp_rover->decrement_actual_time_till_checkup();
+		temp_mission = temp_rover->get_mission();
 		temp_rover->set_mission(nullptr);
 		if (temp_rover->get_actual_time_till_checkup() == 0)
 		{
@@ -165,6 +203,19 @@ void Station::retrieve_rover()
 			}
 		
 		}
+		if (temp_mission->get_mission_type()=='E')
+		{
+			increment_e_completed_missions();
+		}
+		else if (temp_mission->get_mission_type() == 'M')
+		{
+			increment_m_completed_missions();
+		}
+		else if (temp_mission->get_mission_type() == 'P')
+		{
+			increment_p_completed_missions();
+		}
+
 	}
 }
 

@@ -29,7 +29,10 @@ class Station
 private:
 	ifstream file;
 	string fileName;
-	
+	////STATS//
+	int E_completed_missions =0;
+	int M_completed_missions =0;
+	int P_completed_missions =0;
 	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
 	typedef int Event;
 
@@ -39,12 +42,10 @@ private:
 	LinkedQueue<Event*> Events;
 	////////ROVERS/////////
 	PriQ<Rover*> InExecutionRovers;
-
 	PriQ<Mission*> CompletedMissions;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
-
 	////////MISSIONS////////////
 	
 	//Private Utility Functions
@@ -73,12 +74,20 @@ private:
 	~Station();
 	void pair(Mission *mission, Rover *rover);
 	///////////Ending day of missions
-
-	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOW/////////////
-	int return_day_of_rover(Rover* rover);
-	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOW/////////////
-
 	int end_day(Mission* mission, Rover* rover);
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
+	int return_day_of_rover(Rover* rover);
+	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
+	//////////////STATS//////////////
+	int get_e_completed_missions();
+	int get_p_completed_missions();
+	int get_m_completed_missions();
+	void increment_e_completed_missions();
+	void increment_p_completed_missions();
+	void increment_m_completed_missions();
+	int get_total_completed_missions();
+	////////////////////STATS//////////////////
+	
 	///adding rovers to Pque
 	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
 	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
