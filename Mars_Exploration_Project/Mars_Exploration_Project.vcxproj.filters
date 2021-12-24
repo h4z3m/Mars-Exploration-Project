@@ -107,7 +107,7 @@
     <ClInclude Include="Datastructures\List ADT\LinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Datastructures\List ADT\Node.h">
+    <ClInclude Include="Datastructures\List ADT\LNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

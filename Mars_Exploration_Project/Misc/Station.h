@@ -9,6 +9,7 @@
 #include "../Rovers/Rover.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
+#include "../Datastructures/List ADT/LinkedList.h"
 /*
 * Class: Station
 * 
@@ -69,6 +70,7 @@ private:
 	////////MISSIONS////////////
 	PriQ<Mission*> EmergencyMissions;
 	LinkedQueue<Mission*> PolarMissions;
+	LinkedList<Mission*> MountainMissions;
 	//Private Utility Functions
 	template<typename U,typename... Types>
 	U IO_ReadLine(ifstream file, U data1,Types... data2);

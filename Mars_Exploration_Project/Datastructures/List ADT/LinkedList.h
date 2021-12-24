@@ -1,13 +1,13 @@
 #ifndef _LINKEDLIST
 #define _LINKEDLIST
 
-#include "Node.h"
+#include "LNode.h"
 
 template <typename T>
 class LinkedList
 {
 private:
-	Node<T> *Head;	//Pointer to the head of the list
+	LNode<T> *Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
 public:
 
@@ -25,12 +25,12 @@ public:
 	////////////////////////////////////////////////////////////////////////
 	/*
 	* Function: PrintList.
-	* prints the values of all nodes in a linked list.
+	* prints the values of all LNodes in a linked list.
 	*/
 	void PrintList()	const
 	{		
 		cout<<"\nprinting list contents:\n\n";
-		Node<T> *p = Head;
+		LNode<T> *p = Head;
 
 		while(p)
 		{
@@ -43,24 +43,24 @@ public:
 	////////////////////////////////////////////////////////////////////////
 	/*
 	* Function: InsertBeg.
-	* Creates a new node and adds it to the beginning of a linked list.
+	* Creates a new LNode and adds it to the beginning of a linked list.
 	* 
 	* Parameters:
-	*	- data : The value to be stored in the new node.
+	*	- data : The value to be stored in the new LNode.
 	*/
 	void InsertBeg(const T &data)
 	{
-		Node<T> *R = new Node<T>(data);
+		LNode<T> *R = new LNode<T>(data);
 		R->setNext(Head);
 		Head = R;
 
 	}
 	//[1]InsertEnd 
-	//inserts a new node at end if the list
+	//inserts a new LNode at end if the list
 	void InsertEnd(const T& data)
 	{
-		Node<T>* ptr = Head;
-		Node<T>* R = new Node<T>(data);
+		LNode<T>* ptr = Head;
+		LNode<T>* R = new LNode<T>(data);
 		for (int i = 1; i < getCount(); i++)
 			ptr = ptr->getNext();
 		ptr->setNext(R);
@@ -68,11 +68,11 @@ public:
 	////////////////////////////////////////////////////////////////////////
 	/*
 	* Function: DeleteAll.
-	* Deletes all nodes of the list.
+	* Deletes all LNodes of the list.
 	*/
 	void DeleteAll()
 	{
-		Node<T> *P = Head;
+		LNode<T> *P = Head;
 		while (Head)
 		{
 			P = Head->getNext();
@@ -84,7 +84,7 @@ public:
 	int getCount()
 	{
 		int count = 0;
-		Node<T>* current = Head;
+		LNode<T>* current = Head;
 		while (current != nullptr)
 		{
 			count++;
@@ -105,9 +105,9 @@ public:
 			InsertEnd(data);
 		else
 		{
-			Node<T>* before = Head;		//pointer before the item inserted
-			Node<T>* after = Head;		//pointer after the item inserted
-			Node<T>* R = new Node<T>(data);
+			LNode<T>* before = Head;		//pointer before the item inserted
+			LNode<T>* after = Head;		//pointer after the item inserted
+			LNode<T>* R = new LNode<T>(data);
 			for (int i = 1; i < position--; i++)
 				before = before->getNext();
 			after = before->getNext();
@@ -124,21 +124,21 @@ public:
 			return;
 		else if (position == 1)
 		{
-			Node<T>* P = Head->getNext();
+			LNode<T>* P = Head->getNext();
 			delete Head;
 			Head = P;
 		}
 		else if (position == getCount())
 		{
-			Node<T>* ptr = Head;
+			LNode<T>* ptr = Head;
 			for (int i = 1; i < position--; i++)
 				ptr = ptr->getNext();
 			ptr->setNext(nullptr);
 		}
 		else
 		{
-			Node<T>* before = Head;		//pointer before the item inserted
-			Node<T>* deleted = Head;
+			LNode<T>* before = Head;		//pointer before the item inserted
+			LNode<T>* deleted = Head;
 			for (int i = 1; i < position--; i++)
 				before = before->getNext();
 			deleted = before->getNext();
@@ -163,33 +163,33 @@ public:
 	int CountOccurance(const T &value);
 
 	//[4] DeleteFirst
-	//Deletes the first node in the list
+	//Deletes the first LNode in the list
 	void DeleteFirst();
 
 
 	//[5] DeleteLast
-	//Deletes the last node in the list
+	//Deletes the last LNode in the list
 	void DeleteLast();
 
-	//[6] DeleteNode
-	//deletes the first node with the given value (if found) and returns true
+	//[6] DeleteLNode
+	//deletes the first LNode with the given value (if found) and returns true
 	//if not found, returns false
 	//Note: List is not sorted
-	bool DeleteNode(const T &value);	
+	bool DeleteLNode(const T &value);	
 
-	//[7] DeleteNodes
-	//deletes ALL node with the given value (if found) and returns true
+	//[7] DeleteLNodes
+	//deletes ALL LNode with the given value (if found) and returns true
 	//if not found, returns false
 	//Note: List is not sorted
-	bool DeleteNodes(const T &value);	
+	bool DeleteLNodes(const T &value);	
 
 	//[8]Merge
-	//Merges the current list to another list L by making the last Node in the current list 
-	//point to the first Node in list L
+	//Merges the current list to another list L by making the last LNode in the current list 
+	//point to the first LNode in list L
 	void Merge(const LinkedList& L);
 
 	//[9] Reverse
-	//Reverses the linked list (without allocating any new Nodes)
+	//Reverses the linked list (without allocating any new LNodes)
 	void Reverse();
 		
 };

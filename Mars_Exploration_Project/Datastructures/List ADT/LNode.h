@@ -1,21 +1,20 @@
-#ifndef _LNODE
-#define _LNODE
-
-//First let's declare a single node in the list
+#ifndef _LLNode
+#define _LLNode
+//First let's declare a single LNode in the list
 template<typename T>
-class Node
+class LNode
 {
 private :
 	T item;	// A data item (can be any complex sturcture)
-	Node<T>* next;	// Pointer to next node
+	LNode<T>* next;	// Pointer to next LNode
 public :
 
-	Node( ) //default constructor
+	LNode( ) //default constructor
 	{
 		next= nullptr;
 	} 
 
-	Node( T newItem) //non-default constructor
+	LNode( T newItem) //non-default constructor
 	{
 		item = newItem;
 		next= nullptr;
@@ -27,9 +26,9 @@ public :
 		item = newItem;
 	} // end setItem
 
-	void setNext(Node<T>* nextNodePtr)
+	void setNext(LNode<T>* nextLNodePtr)
 	{
-	next = nextNodePtr;
+	next = nextLNodePtr;
 	} // end setNext
 
 	T getItem() const
@@ -37,10 +36,10 @@ public :
 		return item;
 	} // end getItem
 
-	Node<T>* getNext() const
+	LNode<T>* getNext() const
 	{
 		return next;
 	}
-}; // end Node
+}; // end LNode
 
 #endif	
