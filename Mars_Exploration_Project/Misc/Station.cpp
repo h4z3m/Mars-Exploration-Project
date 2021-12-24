@@ -81,14 +81,36 @@ void Station::pair(Mission* mission, Rover* rover)
 	///add for mountain after including linked list
 }
 
-void Station::add_polar_rover(int input_number_of_polar_rovers, int SP, int CP, int missions_till_checkup)
+void Station::add_polar_rover(int input_number_of_rovers, int SP, int CP, int N)
 {
 	Rover* temp_rover;
-	for (int i = 0; i < input_number_of_polar_rovers; i++)
+	for (int i = 0; i < input_number_of_rovers; i++)
 	{
-		temp_rover = new Rover(CP, SP, 'p', missions_till_checkup);
+		temp_rover = new Rover(CP, SP, 'p', N);
 		PolarRovers.enqueue(temp_rover,SP);
 		
+	}
+}
+
+void Station::add_emergency_rover(int input_number_of_rovers, int SE, int CE, int N)
+{
+	Rover* temp_rover;
+	for (int i = 0; i < input_number_of_rovers; i++)
+	{
+		temp_rover = new Rover(CE, SE, 'e', N);
+		EmergencyRovers.enqueue(temp_rover, SE);
+
+	}
+}
+
+void Station::add_mountains_rover(int input_number_of_rovers, int SM, int CM, int N)
+{
+	Rover* temp_rover;
+	for (int i = 0; i < input_number_of_rovers; i++)
+	{
+		temp_rover = new Rover(CM, SM, 'm', N);
+		MountainRovers.enqueue(temp_rover, SM);
+
 	}
 }
 
