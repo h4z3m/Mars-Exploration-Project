@@ -114,9 +114,6 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 			else {
 
 			}
-
-
-
 		}
 		file.close();
 		return true;
