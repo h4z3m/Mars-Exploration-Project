@@ -44,8 +44,7 @@ private:
 	LinkedQueue<Rover*> InCheckupMountainRovers;
 
 	////////MISSIONS////////////
-	PriQ<Mission*> EmergencyMissions;
-	LinkedQueue<Mission*> PolarMissions;
+	
 	//Private Utility Functions
 	
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
@@ -57,6 +56,8 @@ private:
 		PriQ<Rover*> PolarRovers;
 		PriQ<Rover*> EmergencyRovers;
 		PriQ<Rover*> MountainRovers;
+		PriQ<Mission*> EmergencyMissions;
+		LinkedQueue<Mission*> PolarMissions;
 
 	/*
 	* Function: Station (Constructor)
@@ -74,8 +75,8 @@ private:
 	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
 	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
 	void add_mountains_rover(int input_number_of_rovers, int SM, int  CM, int N);
-
-
+	///////ADD MISSIONS
+	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
 };
 

@@ -114,5 +114,26 @@ void Station::add_mountains_rover(int input_number_of_rovers, int SM, int CM, in
 	}
 }
 
+void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG)
+{
+
+	Mission* temp_mission;
+	temp_mission = new Mission(type, ED, TLOC, MDUR, SIG, ID);
+	if (type =='M')
+	{
+		/////enqueu in mountain when linked list is made
+	}
+	else if (type == 'E') 
+	{
+		EmergencyMissions.enqueue(temp_mission, SIG);
+	}
+	else if (type == 'P')
+	{
+		PolarMissions.enqueue(temp_mission);
+	}
+}
+
+
+
 
 

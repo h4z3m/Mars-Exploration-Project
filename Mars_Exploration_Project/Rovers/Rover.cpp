@@ -6,7 +6,7 @@ Rover::Rover()
 {
 	checkup_duration = 1;
 	speed = 1;
-	rover_type = 'p';
+	rover_type = 'P';
 	initial_time_till_checkup = 1;
 	actual_time_till_checkup = 1;
 }

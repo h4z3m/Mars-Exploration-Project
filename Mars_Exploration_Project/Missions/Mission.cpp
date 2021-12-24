@@ -2,7 +2,7 @@
 
 Mission::Mission()
 {
-	type = 'p';
+	type = 'P';
 	formulation_day = 1;
 	target_location = 1;
 	mission_duration = 1;

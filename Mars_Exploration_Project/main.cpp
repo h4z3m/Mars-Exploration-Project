@@ -37,19 +37,14 @@ int main()
 {
 	
 	Rover r1;
-	Rover* r2;
-	Rover* r3;
+	Rover *r2;
+	Rover *r3;
 	Rover *r4;
-	Mission m1;
-	Mission m2;
-	m2.set_id(3);
-	r1.set_speed(50);
-	m1.set_mission_duration(6);
-	m1.set_target_location(150);
+	Mission *m1;
+	Mission *m2;
+	Mission *m3;
 	Station home;
-	home.pair(&m1, &r1);
-
-	home.App.print_mission_info(&m1);
+	
 	home.App.print_rover_info(&r1);
 	home.add_polar_rover(5, 99, 99, 99);
 	home.add_emergency_rover(3, 88, 88, 77);
@@ -64,6 +59,17 @@ int main()
 	home.MountainRovers.dequeue(r4);
 	home.App.print_rover_info(r4);
 
+
+	home.formulate_mission('E', 4, 4, 5, 6, 7);
+	home.formulate_mission('E', 10, 10, 10, 10, 1);
+	home.formulate_mission('P', 55, 5, 5, 5, 5);
+
+	home.EmergencyMissions.dequeue(m1);
+	home.App.print_mission_info(m1);
+	home.EmergencyMissions.dequeue(m2);
+	home.App.print_mission_info(m2);
+	home.PolarMissions.dequeue(m3);
+	home.App.print_mission_info(m3);
 	cin.get();
 	return 0;
 }
