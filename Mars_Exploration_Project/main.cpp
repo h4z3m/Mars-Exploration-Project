@@ -21,21 +21,15 @@
 
 
 #include "Datastructures/Queue ADT/LinkedQueue.h"
-
 #include "Datastructures/PriQ ADT/PriQ.h"
-
+#include "Misc/Station.h"
 #include <iostream>
 using namespace std;	
 
-///////////////////////////////////
-/*Global Variables*/
-
-///////////////////////////////////
 int main()
 {
-	PriQ<int> q;
-	q.enqueue(5, 3);
 	
+	Station s1;
 
 	cin.get();
 	return 0;

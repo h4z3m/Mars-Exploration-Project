@@ -9,9 +9,34 @@ Station::Station()
 
 }
 
-bool Station::IO_ReadFile(LinkedQueue<Event*> & ReturnList)
+void Station::Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int InCheckupDuration, unsigned int MaxMissions)
 {
-	char counter = 5;
+	PriQ<Rover*>* tempPtr;
+	//Determine type of rover queue to create
+	switch (type) {
+	case 'E':
+		tempPtr = &EmergencyRovers;
+		break;
+	case 'M':
+		tempPtr = &MountainRovers;
+		break;
+
+	case 'P':
+		tempPtr = &PolarRovers;
+		break;
+	default:
+		return;
+
+	}
+	for (unsigned int i = 0; i < count; ++i) {
+		Rover* newRover = new Rover(InCheckupDuration, speed, type, MaxMissions);
+		//Enqueue new rover and give its speed as priority
+		//The higher the speed, the higher the priority
+		tempPtr->enqueue(newRover, speed);
+	}
+}
+bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
+{
 	//Get file name from user
 	App.UI_printString((const char*)"Enter filename (including ext): ");
 	fileName = App.UI_getString();
@@ -23,11 +48,11 @@ bool Station::IO_ReadFile(LinkedQueue<Event*> & ReturnList)
 	string line;
 	char dummy;
 
-	
+
 	if (file.is_open()) {
 		//Start loading data into event lists
 		//Parse first 5 lines 
-		
+
 		//Number of available rovers of all types
 		getline(file, rovertypes);
 		stringstream ss(rovertypes);
@@ -35,24 +60,66 @@ bool Station::IO_ReadFile(LinkedQueue<Event*> & ReturnList)
 		//Rover speeds for all types
 		ss.str(""); ss.clear();
 		getline(file, roverspeeds);
-		ss<<roverspeeds;
-		while (ss >> M_Rover_Speed>> P_Rover_Speed>> E_Rover_Speed);
+		ss << roverspeeds;
+		while (ss >> M_Rover_Speed >> P_Rover_Speed >> E_Rover_Speed);
 		//Rover max missions, checkup duration for each type
 		ss.str(""); ss.clear();
 		getline(file, roverdata);
-		ss<<roverdata;
-		while (ss >> Rover_Max_Missions>> M_Rover_InCheckupDuration >> P_Rover_InCheckupDuration >> E_Rover_InCheckupDuration);
+		ss << roverdata;
+		while (ss >> Rover_Max_Missions >> M_Rover_InCheckupDuration >> P_Rover_InCheckupDuration >> E_Rover_InCheckupDuration);
 		//Auto promotion
 		ss.str(""); ss.clear();
 		getline(file, line);
-		ss<<line;
+		ss << line;
 		while (ss >> AutoPromotionLimit);
 		//Event count
 		ss.str(""); ss.clear();
 		getline(file, line);
-		ss<<line;
+		ss << line;
 		while (ss >> EventCount);
-		
+		//----Start filling rover queues----//
+		Init_Rovers('E', total_Erovers, E_Rover_Speed, E_Rover_InCheckupDuration, Rover_Max_Missions);
+		Init_Rovers('M', total_Mrovers, M_Rover_Speed, M_Rover_InCheckupDuration, Rover_Max_Missions);
+		Init_Rovers('P', total_Provers, P_Rover_Speed, P_Rover_InCheckupDuration, Rover_Max_Missions);
+		//----Parse rest of file containing events----//
+		uint8 mission_type;
+		uint32 event_day;
+		uint32 mission_ID;
+		uint32 target_loc;
+		uint32 mission_duration;
+		uint8 mission_significance;
+		for (uint32 i = 0; i < EventCount; ++i) {
+			getline(file, line);
+			if (line.find('F') != string::npos) {
+				//Formulate event here
+				ss.str(""); ss.clear();
+				ss << line;
+				while (ss >> dummy >> mission_type >> event_day >> mission_ID >> target_loc >> mission_duration >> mission_significance);
+				FormulateEvent* newF_Event = new FormulateEvent(mission_type, event_day, mission_ID, target_loc, mission_duration, mission_significance);
+				Events.enqueue(newF_Event);
+			}
+			else if (line.find('P') != string::npos) {
+				//Promote event here
+				ss.str(""); ss.clear();
+				ss << line;
+				while (ss >> dummy >> event_day >> mission_ID);
+			}
+			else if (line.find('X') != string::npos) {
+				//Cancel event here
+				ss.str(""); ss.clear();
+				ss << line;
+				while (ss >> dummy >> event_day >> mission_ID);
+
+			}
+			else {
+
+			}
+
+
+
+		}
+		file.close();
+		return true;
 	}
 	//Failed to open file                             
 	else {

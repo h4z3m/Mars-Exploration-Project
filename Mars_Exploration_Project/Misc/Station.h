@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 #include"UI.h"
+#include "../Events/FormulationEvent.h"
+#include"common_types.h"
 #include "../Rovers/Rover.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
@@ -32,7 +34,7 @@ private:
 	string fileName;
 	
 	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
-	typedef int Event;
+	//typedef int Event;
 
 	/// </summary>
 	unsigned int current_day;
@@ -68,7 +70,9 @@ private:
 	PriQ<Mission*> EmergencyMissions;
 	LinkedQueue<Mission*> PolarMissions;
 	//Private Utility Functions
-	
+	template<typename U,typename... Types>
+	U IO_ReadLine(ifstream file, U data1,Types... data2);
+	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
 	public:
@@ -86,4 +90,3 @@ private:
 
 
 };
-

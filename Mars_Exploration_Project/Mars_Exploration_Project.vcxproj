@@ -140,22 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Events\CancelEvent.cpp" />
-    <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="Events\FormulationEvent.cpp" />
     <ClCompile Include="Events\PromotionEvent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Misc\Station.cpp" />
     <ClCompile Include="Misc\UI.cpp" />
-    <ClCompile Include="Missions\Emergency_Mission.cpp" />
     <ClCompile Include="Missions\Mission.cpp" />
-    <ClCompile Include="Missions\Mountaineous_Mission.cpp" />
-    <ClCompile Include="Missions\Polar_Mission.cpp" />
     <ClCompile Include="Rovers\Emergency_Rover.cpp" />
     <ClCompile Include="Rovers\Mountaineous_Rover.cpp" />
     <ClCompile Include="Rovers\Polar_Rover.cpp" />
     <ClCompile Include="Rovers\Rover.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Datastructures\List ADT\LinkedList.h" />
+    <ClInclude Include="Datastructures\List ADT\Node.h" />
     <ClInclude Include="Datastructures\PriQ ADT\PriNode.h" />
     <ClInclude Include="Datastructures\PriQ ADT\PriQ.h" />
     <ClInclude Include="Datastructures\PriQ ADT\PQueueADT.h" />
@@ -166,16 +164,17 @@
     <ClInclude Include="Events\Event.h" />
     <ClInclude Include="Events\FormulationEvent.h" />
     <ClInclude Include="Events\PromotionEvent.h" />
+    <ClInclude Include="Misc\common_types.h" />
     <ClInclude Include="Misc\Station.h" />
     <ClInclude Include="Misc\UI.h" />
-    <ClInclude Include="Missions\Emergency_Mission.h" />
     <ClInclude Include="Missions\Mission.h" />
-    <ClInclude Include="Missions\Mountaineous_Mission.h" />
-    <ClInclude Include="Missions\Polar_Mission.h" />
     <ClInclude Include="Rovers\Emergency_Rover.h" />
     <ClInclude Include="Rovers\Mountaineous_Rover.h" />
     <ClInclude Include="Rovers\Polar_Rover.h" />
     <ClInclude Include="Rovers\Rover.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

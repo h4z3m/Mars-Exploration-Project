@@ -18,16 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Missions\Emergency_Mission.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Missions\Mission.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Missions\Mountaineous_Mission.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Missions\Polar_Mission.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Rovers\Emergency_Rover.cpp">
@@ -51,9 +42,6 @@
     <ClCompile Include="Events\CancelEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Events\Event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Events\FormulationEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,16 +50,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Missions\Emergency_Mission.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Missions\Mission.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Missions\Mountaineous_Mission.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Missions\Polar_Mission.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rovers\Emergency_Rover.h">
@@ -122,5 +101,17 @@
     <ClInclude Include="Datastructures\Queue ADT\QueueADT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Misc\common_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\List ADT\LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Datastructures\List ADT\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
 </Project>
