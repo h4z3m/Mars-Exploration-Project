@@ -8,6 +8,8 @@ class Mission
 		int mission_duration;
 		int significance;
 		int id;
+		int start_day;
+
 	public:
 		Mission();
 		Mission(char input_mission_type, int input_formulation_day, int input_target_location, int input_mission_duration, int input_significance,int input_id);
@@ -29,6 +31,9 @@ class Mission
 
 		void set_id(int input_id);
 		int get_id();
+
+		void set_start_day(int start);
+		int get_start_day();
 	
 };
 

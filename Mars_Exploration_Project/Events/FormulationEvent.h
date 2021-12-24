@@ -1,13 +1,21 @@
 #include "Event.h"
-class FormulateEvent : public Event {
+#include "../Datastructures/Queue ADT/LinkedQueue.h"
+#include "../Datastructures/PriQ ADT/PriQ.h"
+#include "../Datastructures/List ADT/LinkedList.h"
+class FormulationEvent : public Event {
 private:
-	uint8  MissionType;
-	uint32 TargetLoc;
-	uint32 MissionDuration;
-	uint8  MissionSignificance;
+	sint8  MissionType;
+	sint32 TargetLoc;
+	sint32 MissionDuration;
+	sint8  MissionSignificance;
 public:
-	FormulateEvent();
-	FormulateEvent(uint8 mType, uint32 eDay, uint32 id, uint32 loc, uint32 dur, uint8 sig);
-	void Execute();
-	~FormulateEvent();
+	FormulationEvent();
+	FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig);
+
+	void Execute(LinkedQueue<Mission*> & P_Missions);
+	void Execute(PriQ<Mission*>& E_Missions);
+	void Execute(LinkedList<Mission*>& M_Missions);
+	sint8 getMissionType();
+
+	~FormulationEvent();
 };

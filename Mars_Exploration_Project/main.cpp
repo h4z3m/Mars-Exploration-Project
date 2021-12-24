@@ -30,14 +30,15 @@ using namespace std;
 int main()
 {
 	
-	Rover r1;
+	/*Rover r1;
 	Rover *r2;
 	Rover *r3;
 	Rover *r4;
 	Mission *m1;
 	Mission *m2;
-	Mission *m3;
+	Mission *m3;*/
 	Station home;
+	home.Simulate_Station();
 	/*
 	home.App.print_rover_info(&r1);
 	home.add_polar_rover(5, 99, 99, 99);
@@ -66,7 +67,7 @@ int main()
 	home.App.print_mission_info(m3);
 	cin.get();
 	*/
-	home.add_emergency_rover(3, 88, 88, 77);
+	/*home.add_emergency_rover(3, 88, 88, 77);
 	home.formulate_mission('E', 1, 1, 1, 1, 1);
 	home.EmergencyMissions.dequeue(m2);
 	home.EmergencyRovers.dequeue(r2);
@@ -84,7 +85,7 @@ int main()
 	int y = home.get_p_completed_missions();
 	int z = home.get_e_completed_missions();
 	cout << x<<y<<z;
-	return 0;
+	return 0;*/
 	
 }
 

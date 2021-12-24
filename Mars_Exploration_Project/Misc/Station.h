@@ -32,74 +32,99 @@ class Station
 private:
 	ifstream file;
 	string fileName;
-	////STATS//
-	int E_completed_missions =0;
-	int M_completed_missions =0;
-	int P_completed_missions =0;
-	/// REMOVE WHEN EVENTS AND MISSIONS ARE COMPLETED
-	//typedef int Event;
+	/// <STATS>
 
-	/// </summary>
-	unsigned int current_day;
-	unsigned int total_Erovers;
-	unsigned int total_Provers;
-	unsigned int total_Mrovers;
+	int E_completed_missions = 0;
+	int M_completed_missions = 0;
+	int P_completed_missions = 0;
 
-	unsigned int M_Rover_Speed;
-	unsigned int P_Rover_Speed;
-	unsigned int E_Rover_Speed;
-
-	unsigned int Rover_Max_Missions;
+	/// </STATS>
 	
-	unsigned int M_Rover_InCheckupDuration;
-	unsigned int P_Rover_InCheckupDuration;
-	unsigned int E_Rover_InCheckupDuration;
 
-	unsigned int AutoPromotionLimit;
-	unsigned int EventCount;
+	/// <Station info>
+	sint32 current_day;
+	sint32 total_Erovers;
+	sint32 total_Provers;
+	sint32 total_Mrovers;
+
+	sint32 M_Rover_Speed;
+	sint32 P_Rover_Speed;
+	sint32 E_Rover_Speed;
+	
+	sint32 Rover_Max_Missions;
+	
+	sint32 M_Rover_InCheckupDuration;
+	sint32 P_Rover_InCheckupDuration;
+	sint32 E_Rover_InCheckupDuration;
+	sint32 AutoPromotionLimit;
+	sint32 EventCount;
+	/// </Station info>
+	
+	/// <Missions' list>
 	LinkedQueue<Event*> Events;
-	////////ROVERS/////////
-	PriQ<Rover*> InExecutionRovers;
 	PriQ<Mission*> CompletedMissions;
+	PriQ<Mission*> EmergencyMissions;
+	LinkedQueue<Mission*> PolarMissions;
+	LinkedList<Mission*> MountainMissions;
+	/// </Missions' list>
+	
+	/// <Rovers list>
+	PriQ<Rover*> InExecutionRovers;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
 	LinkedQueue<Rover*> InCheckupMountainRovers;
-	////////MISSIONS////////////
-	PriQ<Mission*> EmergencyMissions;
-	LinkedQueue<Mission*> PolarMissions;
+	PriQ<Rover*> PolarRovers;
+	PriQ<Rover*> EmergencyRovers;
+	PriQ<Rover*> MountainRovers;
+	
+	/// </Rovers list>
+	
 	//Private Utility Functions
 	template<typename U,typename... Types>
 	U IO_ReadLine(ifstream file, U data1,Types... data2);
 	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
-	public:
-		/// /return these private///
-		UI App;
-		
-		PriQ<Rover*> PolarRovers;
-		PriQ<Rover*> EmergencyRovers;
-		PriQ<Rover*> MountainRovers;
-		PriQ<Mission*> EmergencyMissions;
-		LinkedQueue<Mission*> PolarMissions;
+	
+
+public:
+	/// /return these private///
+	UI App;
+
+	
 
 	/*
 	* Function: Station (Constructor)
 	* Description: 
 	*	1. Read input file at startup
 	*	2. Load events, rovers, and mission queues
-	*		
 	*/
 	Station();
-	//Public Member Functions
+
+	void Simulate_Station();
+
 	~Station();
+	
+	/*
+	* Function: pair 
+	* Description:
+	*	Pairs a mission with the best possible rover available depending on
+	*	the type of mission
+	*/
 	void pair(Mission *mission, Rover *rover);
 	///////////Ending day of missions
+	/*
+	* Function: end_day
+	* Description:
+	*	
+	*	
+	*/
 	int end_day(Mission* mission, Rover* rover);
 	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
 	int return_day_of_rover(Rover* rover);
 	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
-	//////////////STATS//////////////
+	
+	/// <Statistics related functions>
 	int get_e_completed_missions();
 	int get_p_completed_missions();
 	int get_m_completed_missions();
@@ -107,13 +132,12 @@ private:
 	void increment_p_completed_missions();
 	void increment_m_completed_missions();
 	int get_total_completed_missions();
-	////////////////////STATS//////////////////
-	
-	///adding rovers to Pque
+	/// </Statistics related functions>
+
 	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
 	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
 	void add_mountains_rover(int input_number_of_rovers, int SM, int  CM, int N);
-	///////ADD MISSIONS
+	/*remove to formulate class*/
 	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
 	void retrieve_rover();

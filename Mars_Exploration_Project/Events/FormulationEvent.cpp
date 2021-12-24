@@ -1,19 +1,38 @@
 #include"FormulationEvent.h"
 #include "../Missions/Mission.h"
-FormulateEvent::FormulateEvent(uint8 mType, uint32 eDay, uint32 id, uint32 loc, uint32 dur, uint8 sig) : Event(id, eDay)
+FormulationEvent::FormulationEvent()
+{
+}
+FormulationEvent::FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig) : Event(id, eDay)
 {
 	MissionType = mType;
 	TargetLoc = loc;
 	MissionDuration = dur;
 	MissionSignificance = sig;
 }
-
-void FormulateEvent::Execute()
+//Polar missions only
+void FormulationEvent::Execute(LinkedQueue<Mission*>& P_Missions)
 {
-	Mission* newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance);
-	
+	Mission* newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance,Mission_ID);
+	P_Missions.enqueue(newM);
 }
 
-FormulateEvent::~FormulateEvent()
+void FormulationEvent::Execute(PriQ<Mission*>& E_Missions)
+{
+	Mission* newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance,Mission_ID);
+	E_Missions.enqueue(newM, MissionSignificance);
+}
+void FormulationEvent::Execute(LinkedList<Mission*>& M_Missions)
+{
+	Mission* newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance, Mission_ID);
+	M_Missions.InsertBeg(newM);
+}
+
+sint8 FormulationEvent::getMissionType()
+{
+	return MissionType;
+}
+
+FormulationEvent::~FormulationEvent()
 {
 }

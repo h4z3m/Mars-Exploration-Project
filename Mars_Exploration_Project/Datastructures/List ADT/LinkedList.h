@@ -2,7 +2,7 @@
 #define _LINKEDLIST
 
 #include "LNode.h"
-
+#include <iostream>
 template <typename T>
 class LinkedList
 {
@@ -92,7 +92,7 @@ public:
 		}
 		return count;
 	}
-
+	template <typename T>
 	void InsertPosition(T data, int position)
 	{
 		if (Head == nullptr)
@@ -115,7 +115,8 @@ public:
 			R->setNext(after);
 		}
 	}
-
+	
+	template <typename T>
 	void DeletePosition(int position)
 	{
 		if (Head == nullptr)
@@ -147,51 +148,32 @@ public:
 		}
 	}
 
-	////////////////     Requirements   ///////////////////
-	//
-	// Implement the following member functions
+	bool deqHead(T& frntEntry)
+	{
+		if (isEmpty())
+			return false;
 
-
-	
-
-	//[2]Find 
-	//searches for a given value in the list, returns true if found; false otherwise.
-	bool Find(int Key);
-
-	//[3]CountOccurance
-	//returns how many times a certain value appeared in the list
-	int CountOccurance(const T &value);
-
-	//[4] DeleteFirst
-	//Deletes the first LNode in the list
-	void DeleteFirst();
-
-
-	//[5] DeleteLast
-	//Deletes the last LNode in the list
-	void DeleteLast();
-
-	//[6] DeleteLNode
-	//deletes the first LNode with the given value (if found) and returns true
-	//if not found, returns false
-	//Note: List is not sorted
-	bool DeleteLNode(const T &value);	
-
-	//[7] DeleteLNodes
-	//deletes ALL LNode with the given value (if found) and returns true
-	//if not found, returns false
-	//Note: List is not sorted
-	bool DeleteLNodes(const T &value);	
-
-	//[8]Merge
-	//Merges the current list to another list L by making the last LNode in the current list 
-	//point to the first LNode in list L
-	void Merge(const LinkedList& L);
-
-	//[9] Reverse
-	//Reverses the linked list (without allocating any new LNodes)
-	void Reverse();
+		LNode<T>* nodeToDeletePtr = Head;
+		frntEntry = Head->getItem();
 		
+		if (Head->getNext()==nullptr) {
+			Head = nullptr;
+		}
+		else {
+			Head = Head->getNext();
+		}
+
+		// Free memory reserved for the dequeued node
+		delete nodeToDeletePtr;
+
+		return true;
+
+	}
+
+	bool isEmpty() {
+		return (Head == nullptr);
+	}
+	
 };
 
 #endif	

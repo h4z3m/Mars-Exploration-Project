@@ -9,7 +9,7 @@ typedef signed int sint16;		/* -32,768        - +32,767	       */
 typedef signed int sint8;		/*-128            - +127		   */
 
 enum Rover_Types {
-	Emergency = 'E',
-	Polar	  = 'P',
-	Mountain  = 'M'
+	EMERGENCY = 'E',
+	POLAR = 'P',
+	MOUNTAIN= 'M'
 };

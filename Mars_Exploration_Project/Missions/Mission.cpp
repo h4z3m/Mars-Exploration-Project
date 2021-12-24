@@ -79,3 +79,13 @@ int Mission::get_id()
 {
 	return id;
 }
+
+void Mission::set_start_day(int start)
+{
+	start_day = start;
+}
+
+int Mission::get_start_day()
+{
+	return start_day;
+}
