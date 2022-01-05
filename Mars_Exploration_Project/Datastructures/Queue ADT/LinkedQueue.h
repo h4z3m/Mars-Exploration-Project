@@ -53,6 +53,7 @@ class LinkedQueue :public QueueADT<T>
 private:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
+	int count;
 public:
 	LinkedQueue();
 	bool isEmpty() const;
@@ -75,6 +76,7 @@ The constructor of the Queue class.
 template <typename T>
 LinkedQueue<T>::LinkedQueue()
 {
+	count = 0;
 	backPtr = nullptr;
 	frontPtr = nullptr;
 

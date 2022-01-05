@@ -22,6 +22,7 @@ char UI::UI_getChar()
 
 void UI::UI_Interactive_Mode(void)
 {
+	
 }
 
 void UI::UI_Step_By_Step(void)

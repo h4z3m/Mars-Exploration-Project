@@ -53,6 +53,7 @@ private:
 
 	PriNode<T>* backPtr;
 	PriNode<T>* frontPtr;
+	int count;
 
 public:
 	PriQ();
@@ -77,7 +78,9 @@ The constructor of the Queue class.
 template <typename T>
 PriQ<T>::PriQ()
 {
+	count = 0;
 	frontPtr = nullptr;
+	backPtr=nullptr;
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -125,6 +128,7 @@ bool PriQ<T>::enqueue(const T& data, const int & priority)
 	if (!frontPtr) {
 		frontPtr = temp;
 		frontPtr->setPrio(priority);
+		++count;
 		return true;
 	}
 	// Special Case: The head of list has
@@ -154,6 +158,7 @@ bool PriQ<T>::enqueue(const T& data, const int & priority)
 		temp->setNext(start->getNext()) ;
 		start->setNext(temp);
 	}
+	++count;
 	return true;
 }
 
@@ -197,6 +202,7 @@ bool PriQ<T>::dequeue(T& frntEntry)
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
+	--count;
 
 	return true;
 
@@ -228,7 +234,7 @@ template <typename T>
 PriQ<T>::~PriQ()
 {
 	T temp;
-
+	count = 0;
 	//Free (Dequeue) all nodes in the queue
 	while (dequeue(temp));
 }
@@ -249,6 +255,7 @@ PriQ<T>::PriQ(const PriQ<T> & LQ)
 	if (!NodePtr) //LQ is empty
 	{
 		frontPtr = backPtr = nullptr;
+		count++;
 		return;
 	}
 
@@ -256,7 +263,7 @@ PriQ<T>::PriQ(const PriQ<T> & LQ)
 	PriNode<T>* ptr = new PriNode<T>(NodePtr->getItem());
 	frontPtr = backPtr = ptr;
 	NodePtr = NodePtr->getNext();
-
+	++count;
 	//insert remaining nodes
 	while (NodePtr)
 	{
@@ -264,6 +271,7 @@ PriQ<T>::PriQ(const PriQ<T> & LQ)
 		backPtr->setNext(ptr);
 		backPtr = ptr;
 		NodePtr = NodePtr->getNext();
+		++count;
 	}
 }
 

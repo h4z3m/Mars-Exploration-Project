@@ -9,11 +9,13 @@ class LinkedList
 private:
 	LNode<T> *Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
+	int count;
 public:
 
 
 	LinkedList()
 	{
+		count = 0;
 		Head = nullptr;
 	}
 
@@ -53,6 +55,7 @@ public:
 		LNode<T> *R = new LNode<T>(data);
 		R->setNext(Head);
 		Head = R;
+		++count;
 
 	}
 	//[1]InsertEnd 
@@ -64,6 +67,7 @@ public:
 		for (int i = 1; i < getCount(); i++)
 			ptr = ptr->getNext();
 		ptr->setNext(R);
+		++count;
 	}
 	////////////////////////////////////////////////////////////////////////
 	/*
@@ -113,6 +117,7 @@ public:
 			after = before->getNext();
 			before->setNext(R);
 			R->setNext(after);
+			++count;
 		}
 	}
 	
@@ -135,6 +140,7 @@ public:
 			for (int i = 1; i < position--; i++)
 				ptr = ptr->getNext();
 			ptr->setNext(nullptr);
+			--count;
 		}
 		else
 		{
@@ -145,6 +151,7 @@ public:
 			deleted = before->getNext();
 			before->setNext(deleted->getNext());
 			delete deleted;
+			--count;
 		}
 	}
 
@@ -165,7 +172,7 @@ public:
 
 		// Free memory reserved for the dequeued node
 		delete nodeToDeletePtr;
-
+		--count;
 		return true;
 
 	}
