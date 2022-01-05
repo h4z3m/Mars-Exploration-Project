@@ -116,7 +116,6 @@ public:
 		}
 	}
 	
-	template <typename T>
 	void DeletePosition(int position)
 	{
 		if (Head == nullptr)

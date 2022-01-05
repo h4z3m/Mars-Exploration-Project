@@ -95,7 +95,7 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				ss.str(""); ss.clear();
 				ss << line;
 				while (ss >> dummy >> mission_type >> event_day >> mission_ID >> target_loc >> mission_duration >> mission_significance);
-				FormulateEvent* newF_Event = new FormulateEvent(mission_type, event_day, mission_ID, target_loc, mission_duration, mission_significance);
+				FormulationEvent* newF_Event = new FormulationEvent(mission_type, event_day, mission_ID, target_loc, mission_duration, mission_significance);
 				Events.enqueue(newF_Event);
 			}
 			else if (line.find('P') != string::npos) {
