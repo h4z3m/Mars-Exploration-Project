@@ -39,7 +39,7 @@ int main()
 	Mission *m3;*/
 	Station home;
 	home.Simulate_Station();
-	cin.get();
+
 	/*
 	home.App.print_rover_info(&r1);
 	home.add_polar_rover(5, 99, 99, 99);

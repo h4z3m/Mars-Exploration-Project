@@ -119,7 +119,7 @@ void Station::Simulate_Station()
 		++current_day;
 	}
 
-	cin.get();
+
 
 }
 
