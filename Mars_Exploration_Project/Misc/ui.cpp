@@ -6,6 +6,14 @@ void UI::UI_printString(const char *st)
 
 }
 
+void UI::UI_printStringColor(const char* COLOR_CODE,stringstream& msg)
+{
+	cout <<COLOR_CODE <<msg.str()<<RESET;
+	CLEAR_STR(msg);
+}
+
+
+
 string UI::UI_getString()
 {
 	string newString;
@@ -18,19 +26,6 @@ char UI::UI_getChar()
 	char newChar;
 	cin >> newChar;
 	return newChar;
-}
-
-void UI::UI_Interactive_Mode(void)
-{
-	
-}
-
-void UI::UI_Step_By_Step(void)
-{
-}
-
-void UI::UI_Silent_Mode(void)
-{
 }
 
 void UI::print_rover_info(Rover* r)
@@ -54,4 +49,19 @@ void UI::print_mission_info(Mission *mission)
 
 	cout << mission_type << "  " << mission_duration << "  " << formulation_day << "  " << target_location<<endl;
 
+}
+
+void UI::UI_WaitKeyPress()
+{
+	cin.get();
+}
+
+void UI::UI_DelaySeconds(int sec)
+{
+	this_thread::sleep_for(chrono::seconds(sec));
+
+}
+
+void UI::UI_clear_screen() {
+	system("cls");
 }

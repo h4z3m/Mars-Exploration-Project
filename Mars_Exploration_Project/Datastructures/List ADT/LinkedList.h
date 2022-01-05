@@ -7,7 +7,7 @@ template <typename T>
 class LinkedList
 {
 private:
-	LNode<T> *Head;	//Pointer to the head of the list
+	LNode<T>* Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
 	int count;
 public:
@@ -22,7 +22,7 @@ public:
 	//List is being desturcted ==> delete all items in the list
 	~LinkedList()
 	{
-		DeleteAll(); 
+		DeleteAll();
 	}
 	////////////////////////////////////////////////////////////////////////
 	/*
@@ -30,11 +30,11 @@ public:
 	* prints the values of all LNodes in a linked list.
 	*/
 	void PrintList()	const
-	{		
-		cout<<"\nprinting list contents:\n\n";
-		LNode<T> *p = Head;
+	{
+		cout << "\nprinting list contents:\n\n";
+		LNode<T>* p = Head;
 
-		while(p)
+		while (p)
 		{
 			cout << "[ " << p->getItem() << " ]";
 			cout << "--->";
@@ -46,13 +46,13 @@ public:
 	/*
 	* Function: InsertBeg.
 	* Creates a new LNode and adds it to the beginning of a linked list.
-	* 
+	*
 	* Parameters:
 	*	- data : The value to be stored in the new LNode.
 	*/
-	void InsertBeg(const T &data)
+	void InsertBeg(const T& data)
 	{
-		LNode<T> *R = new LNode<T>(data);
+		LNode<T>* R = new LNode<T>(data);
 		R->setNext(Head);
 		Head = R;
 		++count;
@@ -76,7 +76,7 @@ public:
 	*/
 	void DeleteAll()
 	{
-		LNode<T> *P = Head;
+		LNode<T>* P = Head;
 		while (Head)
 		{
 			P = Head->getNext();
@@ -105,7 +105,7 @@ public:
 			return;
 		else if (position == 1)
 			InsertBeg(data);
-		else if (position == getCount()+1)
+		else if (position == getCount() + 1)
 			InsertEnd(data);
 		else
 		{
@@ -120,7 +120,7 @@ public:
 			++count;
 		}
 	}
-	
+
 	template <typename T>
 	void DeletePosition(int position)
 	{
@@ -162,8 +162,8 @@ public:
 
 		LNode<T>* nodeToDeletePtr = Head;
 		frntEntry = Head->getItem();
-		
-		if (Head->getNext()==nullptr) {
+
+		if (Head->getNext() == nullptr) {
 			Head = nullptr;
 		}
 		else {
@@ -180,7 +180,13 @@ public:
 	bool isEmpty() {
 		return (Head == nullptr);
 	}
-	
+
+	LNode<T>* getHead()
+	{
+		return Head;
+	}
+
+
 };
 
 #endif	

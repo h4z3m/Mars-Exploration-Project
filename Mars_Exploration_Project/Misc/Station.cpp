@@ -11,6 +11,7 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
+
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty()) {
@@ -45,6 +46,7 @@ void Station::Simulate_Station()
 		}
 		// 2 - Retrieve incoming rovers
 		retrieve_rover();
+		retrieve_rover_from_checkup();
 		// 3 - Pair available rovers to corresponding missions
 		while (!EmergencyMissions.isEmpty())
 		{
@@ -55,13 +57,13 @@ void Station::Simulate_Station()
 				EmergencyRovers.dequeue(Outgoing_Rover);
 				EmergencyMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-				App.UI_printString("em mission - em rover\n");
+			/*	App.UI_printString("em mission - em rover\n");*/
 			}
 			else if (!MountainRovers.isEmpty()) {
 				MountainRovers.dequeue(Outgoing_Rover);
 				EmergencyMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-				App.UI_printString("em mission - mountain rover\n");
+			/*	App.UI_printString("em mission - mountain rover\n");*/
 
 
 			}
@@ -69,11 +71,12 @@ void Station::Simulate_Station()
 				PolarRovers.dequeue(Outgoing_Rover);
 				EmergencyMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-				App.UI_printString("em mission - polar rover\n");
+				/*App.UI_printString("em mission - polar rover\n");*/
 
 			}
 			else {
-				App.UI_printString((const char*)"No rovers available for em missions\n");
+			/*	App.UI_printString((const char*)"No rovers available for em missions\n");*/
+				break;
 			}
 		}
 		while (!PolarMissions.isEmpty())
@@ -85,11 +88,12 @@ void Station::Simulate_Station()
 				PolarRovers.dequeue(Outgoing_Rover);
 				PolarMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-				App.UI_printString("polar mission - polar rover\n");
+			/*	App.UI_printString("polar mission - polar rover\n");*/
 
 			}
 			else {
-				App.UI_printString((const char*)"No rovers available for polar missions\n");
+				/*App.UI_printString((const char*)"No rovers available for polar missions\n");*/
+				break;
 			}
 		}
 		while (!MountainMissions.isEmpty())
@@ -101,7 +105,7 @@ void Station::Simulate_Station()
 				MountainRovers.dequeue(Outgoing_Rover);
 				MountainMissions.deqHead(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-				App.UI_printString("em mission - mountain rover\n");
+				/*App.UI_printString("em mission - mountain rover\n");*/
 
 			}
 			else if (!EmergencyRovers.isEmpty()) {
@@ -112,14 +116,14 @@ void Station::Simulate_Station()
 			}
 
 			else {
-				App.UI_printString((const char*)"No rovers available for mountain missions\n");
+				//App.UI_printString((const char*)"No rovers available for mountain missions\n");
+				break;
 			}
 		}
-
+		print_day();
+		App.UI_clear_screen();
 		++current_day;
 	}
-
-
 
 }
 
@@ -143,7 +147,7 @@ void Station::Init_Rovers(char type, unsigned int count, unsigned int speed, uns
 
 	}
 	for (unsigned int i = 0; i < count; ++i) {
-		Rover* newRover = new Rover(InCheckupDuration, speed, type, MaxMissions);
+		Rover* newRover = new Rover(InCheckupDuration, speed, type, MaxMissions,i+1);
 		//Enqueue new rover and give its speed as priority
 		//The higher the speed, the higher the priority
 		tempPtr->enqueue(newRover, speed);
@@ -319,39 +323,39 @@ int Station::end_day(Mission* mission, Rover* rover)
 	piority = current_day + mission_duration + (2 * ((mission_location / speed_of_rover) / 25));
 	return piority;
 }
-
-void Station::add_polar_rover(int input_number_of_rovers, int SP, int CP, int N)
-{
-	Rover* temp_rover;
-	for (int i = 0; i < input_number_of_rovers; i++)
-	{
-		temp_rover = new Rover(CP, SP, 'P', N);
-		PolarRovers.enqueue(temp_rover, SP);
-
-	}
-}
-
-void Station::add_emergency_rover(int input_number_of_rovers, int SE, int CE, int N)
-{
-	Rover* temp_rover;
-	for (int i = 0; i < input_number_of_rovers; i++)
-	{
-		temp_rover = new Rover(CE, SE, 'E', N);
-		EmergencyRovers.enqueue(temp_rover, SE);
-
-	}
-}
-
-void Station::add_mountains_rover(int input_number_of_rovers, int SM, int CM, int N)
-{
-	Rover* temp_rover;
-	for (int i = 0; i < input_number_of_rovers; i++)
-	{
-		temp_rover = new Rover(CM, SM, 'M', N);
-		MountainRovers.enqueue(temp_rover, SM);
-
-	}
-}
+//
+//void Station::add_polar_rover(int input_number_of_rovers, int SP, int CP, int N)
+//{
+//	Rover* temp_rover;
+//	for (int i = 0; i < input_number_of_rovers; i++)
+//	{
+//		temp_rover = new Rover(CP, SP, 'P', N);
+//		PolarRovers.enqueue(temp_rover, SP);
+//
+//	}
+//}
+//
+//void Station::add_emergency_rover(int input_number_of_rovers, int SE, int CE, int N)
+//{
+//	Rover* temp_rover;
+//	for (int i = 0; i < input_number_of_rovers; i++)
+//	{
+//		temp_rover = new Rover(CE, SE, 'E', N);
+//		EmergencyRovers.enqueue(temp_rover, SE);
+//
+//	}
+//}
+//
+//void Station::add_mountains_rover(int input_number_of_rovers, int SM, int CM, int N)
+//{
+//	Rover* temp_rover;
+//	for (int i = 0; i < input_number_of_rovers; i++)
+//	{
+//		temp_rover = new Rover(CM, SM, 'M', N);
+//		MountainRovers.enqueue(temp_rover, SM);
+//
+//	}
+//}
 
 void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG)
 {
@@ -361,6 +365,7 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	if (type == 'M')
 	{
 		/////enqueu in mountain when linked list is made
+		MountainMissions.InsertBeg(temp_mission);
 	}
 	else if (type == 'E')
 	{
@@ -371,6 +376,7 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 		PolarMissions.enqueue(temp_mission);
 	}
 }
+
 
 void Station::retrieve_rover()
 {
@@ -388,14 +394,17 @@ void Station::retrieve_rover()
 		{
 			if (temp_rover->get_rover_type() == MOUNTAIN)
 			{
+				temp_rover->set_day_to_get_out_of_checkup(current_day + M_Rover_InCheckupDuration);
 				InCheckupMountainRovers.enqueue(temp_rover);
 			}
 			else if (temp_rover->get_rover_type() == EMERGENCY)
 			{
+				temp_rover->set_day_to_get_out_of_checkup(current_day + E_Rover_InCheckupDuration);
 				InCheckupEmergencyRovers.enqueue(temp_rover);
 			}
 			else
 			{
+				temp_rover->set_day_to_get_out_of_checkup(current_day + P_Rover_InCheckupDuration);
 				InCheckupPolarRovers.enqueue(temp_rover);
 			}
 		}
@@ -404,18 +413,18 @@ void Station::retrieve_rover()
 			if (temp_rover->get_rover_type() == MOUNTAIN)
 			{
 				MountainRovers.enqueue(temp_rover, temp_rover->get_speed());
-				//TODO: REMOVE WHEN FINISHED TESTING
+				////TODO: REMOVE WHEN FINISHED TESTING
 
-				App.UI_printString((const char*)"M - Returned on ");
-				cout << current_day;
+				//App.UI_printString((const char*)"M - Returned on ");
+				//cout << current_day;
 			}
 			else if (temp_rover->get_rover_type() == EMERGENCY)
 			{
 				EmergencyRovers.enqueue(temp_rover, temp_rover->get_speed());
 
-				//TODO: REMOVE WHEN FINISHED TESTING
-				App.UI_printString((const char*)"E - Returned on ");
-				cout << current_day;
+				////TODO: REMOVE WHEN FINISHED TESTING
+				//App.UI_printString((const char*)"E - Returned on ");
+				//cout << current_day;
 
 			}
 			else
@@ -424,8 +433,8 @@ void Station::retrieve_rover()
 
 
 				//TODO: REMOVE WHEN FINISHED TESTING
-				App.UI_printString((const char*)"P - Returned on ");
-				cout << current_day;
+				//App.UI_printString((const char*)"P - Returned on ");
+				//cout << current_day;
 
 			}
 
@@ -446,7 +455,442 @@ void Station::retrieve_rover()
 	}
 }
 
+void Station::retrieve_rover_from_checkup()
+{
+	Rover* temp_rover;
+	Mission* temp_mission;
+	while (InCheckupEmergencyRovers.peek(temp_rover) && temp_rover->get_day_to_get_out_of_checkup() == current_day)
+	{
+		InCheckupEmergencyRovers.dequeue(temp_rover);
+		EmergencyRovers.enqueue(temp_rover, temp_rover->get_speed());
+		/*App.UI_printString((const char*)"E - rover out of checkup ");*/
+	}
+	while (InCheckupMountainRovers.peek(temp_rover) && temp_rover->get_day_to_get_out_of_checkup() == current_day)
+	{
+		InCheckupMountainRovers.dequeue(temp_rover);
+		MountainRovers.enqueue(temp_rover, temp_rover->get_speed());
+	}
+	while (InCheckupPolarRovers.peek(temp_rover) && temp_rover->get_day_to_get_out_of_checkup() == current_day)
+	{
+		InCheckupPolarRovers.dequeue(temp_rover);
+		PolarRovers.enqueue(temp_rover, temp_rover->get_speed());
+	}
+}
+
+void Station::print_waiting_missions() {
+	stringstream buff;
+
+	/***************Waiting Missions line******************/
+	buff << BOLDYELLOW<< EmergencyMissions.get_count() + PolarMissions.get_count() + MountainMissions.getCount() << RED << "  Waiting " << YELLOW << "Missions: " << WHITE << "[";
+
+	/* Get waiting emergency missions*/
+	App.UI_printStringColor(BOLDWHITE, buff);
+	Mission* tempMission = nullptr;
+
+	PriNode<Mission*>* emNode = EmergencyMissions.getPFront();
+	while (emNode) {
+		tempMission = emNode->getItem();
+
+		buff << tempMission->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (emNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		emNode = emNode->getNext();
+	}
+	buff << " ] ";
+	App.UI_printStringColor(WHITE, buff);
 
 
+	/* Get waiting polar missions*/
+	buff << " ( ";
+	App.UI_printStringColor(BOLDWHITE, buff);
+
+	tempMission = nullptr;
+	Node<Mission*>* pNode = PolarMissions.getFront();
+
+	while (pNode) {
+		tempMission = pNode->getItem();
+		buff << tempMission->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (pNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		pNode = pNode->getNext();
+	}
+	buff << " ) ";
+	App.UI_printStringColor(WHITE, buff);
+
+	/* Get waiting mountain missions*/
+	buff << "{ ";
+	App.UI_printStringColor(WHITE, buff);
+	tempMission = nullptr;
+	LNode<Mission*>* mNode = MountainMissions.getHead();
+	while (mNode) {
+		tempMission = mNode->getItem();
+
+		buff << tempMission->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (mNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		mNode = mNode->getNext();
+	}
+	buff << "} "<<endl;
+	App.UI_printStringColor(WHITE, buff);
+}
+void Station::print_inexec_missionsrovers() {
+
+	stringstream buff;
+	/**Emergency Missions/Rovers**/
+	int execution_missions_count = InExecutionRovers.get_count();
+	buff << BOLDRED << execution_missions_count << YELLOW <<" In-Execution "<<CYAN <<"Missions"<<WHITE<<"/"<< YELLOW<<"Rovers: " << WHITE <<"[ ";
+	App.UI_printStringColor(WHITE, buff);
+	Rover* tempRover = nullptr;
+	PriNode<Rover*>* emRoverNode = InExecutionRovers.getPFront();
+	while (emRoverNode) {
+		tempRover = emRoverNode->getItem();
+		if (tempRover->get_rover_type() == 'E') {
+			buff << tempRover->get_mission_id();
+			buff << "/" << tempRover->get_id();
+			App.UI_printStringColor(WHITE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		emRoverNode = emRoverNode->getNext();
+	}
+	buff << " ] ";
+	App.UI_printStringColor(WHITE, buff);
 
 
+	/**Polar Missions/Rovers**/
+	buff << " ( ";
+	App.UI_printStringColor(WHITE, buff);
+	tempRover = nullptr;
+	PriNode<Rover*>* pRoverNode = InExecutionRovers.getPFront();
+	while (pRoverNode) {
+		tempRover = pRoverNode->getItem();
+
+		if (tempRover->get_rover_type() == 'P') {
+			buff << tempRover->get_mission_id();
+			buff << "/" << tempRover->get_id();
+			App.UI_printStringColor(WHITE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		pRoverNode = pRoverNode->getNext();
+	}
+	buff << " ) ";
+	App.UI_printStringColor(WHITE, buff);
+
+
+	/**Mountain Missions/Rovers**/
+	buff << " { ";
+	App.UI_printStringColor(WHITE, buff);
+	tempRover = nullptr;
+	PriNode<Rover*>* mRoverNode = InExecutionRovers.getPFront();
+
+	while (mRoverNode) {
+		tempRover = mRoverNode->getItem();
+
+		if (tempRover->get_rover_type() == 'M') {
+			buff << tempRover->get_mission_id();
+			buff << "/" << tempRover->get_id();
+			App.UI_printStringColor(WHITE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+
+		mRoverNode = mRoverNode->getNext();
+	}
+	buff << " } "<<endl;
+	App.UI_printStringColor(WHITE, buff);
+}
+void Station::print_avail_rovers()
+{
+	stringstream buff;
+	/**Emergency Missions/Rovers**/
+	int total_avail_rovers = EmergencyRovers.get_count()+PolarRovers.get_count()+MountainRovers.get_count();
+	buff << BOLDRED << total_avail_rovers << GREEN << " Available" <<YELLOW<<" Rovers: " << WHITE << "[";
+	App.UI_printStringColor(WHITE, buff);
+	Rover* tempRover = nullptr;
+	PriNode<Rover*>* emRoverNode = EmergencyRovers.getPFront();
+	while (emRoverNode) {
+		tempRover = emRoverNode->getItem();
+
+		buff << tempRover->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (emRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		emRoverNode = emRoverNode->getNext();
+	}
+	buff << " ] ";
+	App.UI_printStringColor(WHITE, buff);
+
+
+	/**Polar Missions/Rovers**/
+	buff << " ( ";
+	App.UI_printStringColor(WHITE, buff);
+	tempRover = nullptr;
+	PriNode<Rover*>* pRoverNode = PolarRovers.getPFront();
+	while (pRoverNode) {
+		tempRover = pRoverNode->getItem();
+
+		buff << tempRover->get_id();
+
+		App.UI_printStringColor(WHITE, buff);
+
+		if (pRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		pRoverNode = pRoverNode->getNext();
+	}
+	buff << " ) ";
+	App.UI_printStringColor(WHITE, buff);
+
+
+	/**Mountain Missions/Rovers**/
+	buff << " { ";
+	App.UI_printStringColor(WHITE, buff);
+	tempRover = nullptr;
+	PriNode<Rover*>* mRoverNode = MountainRovers.getPFront();
+
+	while (mRoverNode) {
+		tempRover = mRoverNode->getItem();
+
+		buff << tempRover->get_id();
+
+		App.UI_printStringColor(WHITE, buff);
+
+		if (mRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		mRoverNode = mRoverNode->getNext();
+	}
+	buff << " } "<<endl;
+	App.UI_printStringColor(WHITE, buff);
+}
+void Station::print_incheckup_rovers()
+{
+	stringstream buff;
+
+	/* Display current day*/
+	int total_incheckup_rovers = InCheckupEmergencyRovers.get_count() + InCheckupMountainRovers.get_count() + InCheckupPolarRovers.get_count();
+	buff << BOLDMAGENTA <<  total_incheckup_rovers<< RED << "  In-Checkup "<< YELLOW<<"Rovers: " << WHITE << " [ ";
+
+	/* Get waiting emergency missions*/
+	App.UI_printStringColor(BOLDWHITE, buff);
+	Rover* tempRover = nullptr;
+
+	Node<Rover*>* emRoverNode = InCheckupEmergencyRovers.getFront();
+	while (emRoverNode) {
+		tempRover = emRoverNode->getItem();
+
+		buff << tempRover->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (emRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		emRoverNode = emRoverNode->getNext();
+	}
+	buff << " ] ";
+	App.UI_printStringColor(WHITE, buff);
+
+
+	/* Get waiting polar missions*/
+	buff << " (";
+	App.UI_printStringColor(BOLDWHITE, buff);
+
+	tempRover = nullptr;
+	Node<Rover*>* pRoverNode = InCheckupPolarRovers.getFront();
+
+	while (pRoverNode) {
+		tempRover = pRoverNode->getItem();
+		buff << tempRover->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (pRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		pRoverNode = pRoverNode->getNext();
+	}
+	buff << " ) ";
+	App.UI_printStringColor(WHITE, buff);
+
+	/* Get waiting mountain missions*/
+	buff << "{ ";
+	App.UI_printStringColor(WHITE, buff);
+	tempRover = nullptr;
+	Node<Rover*>* mRoverNode = InCheckupMountainRovers.getFront();
+	while (mRoverNode) {
+		tempRover = mRoverNode->getItem();
+
+		buff << tempRover->get_id();
+		App.UI_printStringColor(WHITE, buff);
+
+		if (mRoverNode->getNext()) {
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		mRoverNode = mRoverNode->getNext();
+	}
+	buff << "} "<<endl;
+	App.UI_printStringColor(WHITE, buff);
+}
+void Station::print_completed_missions()
+{
+	stringstream buff;
+
+	/***************Waiting Missions line******************/
+	buff << BOLDMAGENTA << CompletedMissions.get_count()<< GREEN << "  Completed" << CYAN <<" Missions: " << WHITE << " [ ";
+
+	/* Get waiting emergency missions*/
+	App.UI_printStringColor(BOLDWHITE, buff);
+	Mission* tempMission = nullptr;
+
+	PriNode<Mission*>* emNode = CompletedMissions.getPFront();
+	while (emNode) {
+		tempMission = emNode->getItem();
+		if (tempMission->get_mission_type() == 'E') {
+			buff << tempMission->get_id();
+			App.UI_printStringColor(WHITE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
+		}
+
+		
+
+		emNode = emNode->getNext();
+	}
+	buff << " ] ";
+	App.UI_printStringColor(WHITE, buff);
+
+
+	/* Get waiting polar missions*/
+	buff << " (";
+	App.UI_printStringColor(BOLDWHITE, buff);
+
+	tempMission = nullptr;
+	PriNode<Mission*>* pNode = CompletedMissions.getPFront();
+
+	while (pNode) {
+		tempMission = pNode->getItem();
+		if (tempMission->get_mission_type() == 'P') {
+			buff << tempMission->get_id();
+			App.UI_printStringColor(WHITE, buff);
+				buff << " , ";
+				App.UI_printStringColor(BLUE, buff);
+		}
+
+		
+		pNode = pNode->getNext();
+	}
+	buff << " ) ";
+	App.UI_printStringColor(WHITE, buff);
+
+	/* Get waiting mountain missions*/
+	buff << "{ ";
+	App.UI_printStringColor(WHITE, buff);
+	tempMission = nullptr;
+	PriNode<Mission*>* mNode = CompletedMissions.getPFront();
+	while (mNode) {
+		tempMission = mNode->getItem();
+
+		if (tempMission->get_mission_type() == 'M') {
+			buff << tempMission->get_id();
+			App.UI_printStringColor(WHITE, buff);
+				buff << " , ";
+				App.UI_printStringColor(BLUE, buff);
+		}
+
+		
+
+		mNode = mNode->getNext();
+	}
+	buff << "} "<<endl;
+	App.UI_printStringColor(WHITE, buff);
+}
+void Station::print_line() {
+	stringstream str;
+	str << "-------------------------------------------------------------------------------"<<endl;
+	App.UI_printStringColor(WHITE, str);
+}
+void Station::print_day() {
+	char dummy;
+	stringstream ss;
+	switch (display_mode) {
+	case Interactive:
+		ss << "Interactive Mode"<<endl;
+		App.UI_printStringColor(BOLDWHITE, ss);
+		break;
+	case StepByStep:
+
+		ss << "Step by Step Mode" << endl;
+		App.UI_printStringColor(BOLDWHITE, ss);
+		this_thread::sleep_for(chrono::seconds(1));
+		break;
+	case Silent:
+		ss << "Silent Mode" << endl;
+		App.UI_printStringColor(BOLDWHITE, ss);
+		break;
+
+
+	}
+	ss << WHITE << "Current day: " <<current_day<<endl;
+	App.UI_printStringColor(BOLDWHITE, ss);
+	/*********Waiting missions*********/
+	print_waiting_missions();
+	print_line();
+	/*********In execution missions/rovers***/
+	print_inexec_missionsrovers();
+	print_line();
+	/*********Available rovers*********/
+	print_avail_rovers();
+	print_line();
+	/*********In checkup rovers*********/
+	print_incheckup_rovers();
+	print_line();
+	/*********Completed missions*********/
+	print_completed_missions();
+	print_line();
+	switch (display_mode) {
+	case Interactive:
+		App.UI_WaitKeyPress();
+		break;
+	case StepByStep:
+		App.UI_DelaySeconds(1);
+		break;
+	case Silent:
+
+		break;
+
+	
+	}
+	return;
+}

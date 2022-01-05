@@ -27,6 +27,7 @@
 *	f. Calls UI class functions to print day details on the output screen
 *	3- Produce the output file at the end of simulation
 */
+
 class Station
 {
 private:
@@ -37,7 +38,7 @@ private:
 	int E_completed_missions = 0;
 	int M_completed_missions = 0;
 	int P_completed_missions = 0;
-
+	char display_mode = Interactive;
 	/// </STATS>
 	
 
@@ -85,7 +86,14 @@ private:
 	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
-	
+	void retrieve_rover_from_checkup();
+	void print_waiting_missions();
+	void print_inexec_missionsrovers();
+	void print_avail_rovers();
+	void print_incheckup_rovers();
+	void print_completed_missions();
+
+	void print_line();
 
 public:
 	/// /return these private///
@@ -141,4 +149,6 @@ public:
 	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 
 	void retrieve_rover();
+	void print_day();
 };
+

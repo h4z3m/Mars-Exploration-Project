@@ -9,9 +9,11 @@ private:
 	int initial_time_till_checkup;
 	int actual_time_till_checkup;
 	Mission *mission = nullptr;
+	int day_to_get_out_of_checkup;
+	int id;
 public:
 	Rover();
-	Rover(int input_checkup_duration,int input_speed,char input_rover_type,int input_initial_time_till_checkup);
+	Rover(int input_checkup_duration,int input_speed,char input_rover_type,int input_initial_time_till_checkup,int input_id);
 	void set_speed(int input_speed);
 	int get_speed();
 
@@ -30,5 +32,9 @@ public:
 	void set_mission(Mission* inexecution_mission);
 	Mission* get_mission();
 	int get_mission_id();
+	void set_day_to_get_out_of_checkup(int input_day_to_get_out_of_checkup);
+	int get_day_to_get_out_of_checkup();
+	void set_id(int input_id);
+	int get_id();
 };
 

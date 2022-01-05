@@ -11,8 +11,9 @@ Rover::Rover()
 	actual_time_till_checkup = 1;
 }
 
-Rover::Rover(int input_checkup_duration, int input_speed, char input_rover_type, int input_initial_time_till_checkup)
+Rover::Rover(int input_checkup_duration, int input_speed, char input_rover_type, int input_initial_time_till_checkup,int input_id)
 {
+	id = input_id;
 	checkup_duration = input_checkup_duration;
 	speed = input_speed;
 	rover_type = input_rover_type;
@@ -92,5 +93,21 @@ int Rover::get_mission_id()
 	return mission->get_id();
 }
 
+void Rover::set_day_to_get_out_of_checkup(int input_day_to_get_out_of_checkup)
+{
+	day_to_get_out_of_checkup = input_day_to_get_out_of_checkup;
+}
 
+int Rover::get_day_to_get_out_of_checkup()
+{
+	return day_to_get_out_of_checkup;
+}
+void Rover::set_id(int input_id)
+{
+	id = input_id;
+}
 
+int Rover::get_id()
+{
+	return id;
+}

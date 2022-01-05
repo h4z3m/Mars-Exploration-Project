@@ -6,28 +6,22 @@ a frontPtr pointer for the front of the queue and a backPtr pointer for the back
 */
 
 /*
-
 The Node: item of type T and a "next" pointer
 -------------
 | item| next | --->
 -------------
 General Queue case:
-
 frontPtr																backPtr
 \											   						/
 \											  					   /
 ------------- 	  ------------- 	  ------------- 	  -------------
 | item| next |--->| item| next |--->  | item| next |--->  | item| next |---> NULL
 ------------- 	  ------------- 	  ------------- 	  -------------
-
 Empty Case:
-
 frontPtr	 backptr
 \	 /
 \	/
 ---- NULL ------
-
-
 Single Node Case:
 frontPtr	 backPtr
 \		/
@@ -35,7 +29,6 @@ frontPtr	 backPtr
 -----------
 |item| next| -->NULL
 -----------
-
 */
 
 #ifndef PLINKED_QUEUE_
@@ -61,18 +54,19 @@ public:
 	bool isEmpty() const;
 	bool enqueue(const T& data, const int& priority);
 	bool dequeue(T& frntEntry);
+	int get_count();
+	PriNode<T>* getPFront() const;
 	bool peek(T& frntEntry)  const;
 	~PriQ();
 
 	//copy constructor
-	PriQ(const PriQ<T> & LQ);
+	PriQ(const PriQ<T>& LQ);
 };
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /*
 Function: Queue()
 The constructor of the Queue class.
-
 */
 
 template <typename T>
@@ -80,7 +74,7 @@ PriQ<T>::PriQ()
 {
 	count = 0;
 	frontPtr = nullptr;
-	backPtr=nullptr;
+	backPtr = nullptr;
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,7 +93,6 @@ PriQ<T>::PriQ()
 /*
 Function: isEmpty
 Sees whether this queue is empty.
-
 Input: None.
 Output: True if the queue is empty; otherwise false.
 */
@@ -113,13 +106,12 @@ bool PriQ<T>::isEmpty() const
 
 /*Function:enqueue
 Adds newEntry at the back of this queue.
-
 Input: newEntry .
 Output: True if the operation is successful; otherwise false.
 */
 
 template <typename T>
-bool PriQ<T>::enqueue(const T& data, const int & priority)
+bool PriQ<T>::enqueue(const T& data, const int& priority)
 {
 	PriNode<T>* start = frontPtr;
 
@@ -155,7 +147,7 @@ bool PriQ<T>::enqueue(const T& data, const int & priority)
 
 		// Either at the ends of the list
 		// or at required position
-		temp->setNext(start->getNext()) ;
+		temp->setNext(start->getNext());
 		start->setNext(temp);
 	}
 	++count;
@@ -171,21 +163,19 @@ bool PriQ<T>::enqueue(const T& newEntry)
 		frontPtr = newNodePtr; // The queue is empty
 	else
 		backPtr->setNext(newNodePtr); // The queue was not empty
-
 	backPtr = newNodePtr; // New node is the last node now
 	return true;
 } // end enqueue*/
 
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*Function: dequeue
-  Removes the front of this queue. That is, removes the item that was added
-  earliest.
-
-  Input: None.
-  Output: True if the operation is successful; otherwise false.
-  */
+/*Function: dequeue
+Removes the front of this queue. That is, removes the item that was added
+earliest.
+Input: None.
+Output: True if the operation is successful; otherwise false.
+*/
 
 template <typename T>
 bool PriQ<T>::dequeue(T& frntEntry)
@@ -211,7 +201,6 @@ bool PriQ<T>::dequeue(T& frntEntry)
 /*
 Function: peek
 copies the front of this queue to the passed param. The operation does not modify the queue.
-
 Input: None.
 Output: The front of the queue.
 */
@@ -224,6 +213,11 @@ bool PriQ<T>::peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+template<typename T>
+PriNode<T>* PriQ<T>::getPFront() const
+{
+	return frontPtr;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 /*
@@ -243,13 +237,12 @@ PriQ<T>::~PriQ()
 Function: Copy constructor
 To avoid shallow copy,
 copy constructor is provided
-
 Input: PriQ<T>: The Queue to be copied
 Output: none
 */
 
 template <typename T>
-PriQ<T>::PriQ(const PriQ<T> & LQ)
+PriQ<T>::PriQ(const PriQ<T>& LQ)
 {
 	PriNode<T>* NodePtr = LQ.frontPtr;
 	if (!NodePtr) //LQ is empty
@@ -273,6 +266,10 @@ PriQ<T>::PriQ(const PriQ<T> & LQ)
 		NodePtr = NodePtr->getNext();
 		++count;
 	}
+}
+template <typename T>
+int PriQ<T>::get_count() {
+	return count;
 }
 
 #endif

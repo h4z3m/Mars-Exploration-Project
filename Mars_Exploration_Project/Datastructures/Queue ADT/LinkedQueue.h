@@ -53,13 +53,15 @@ class LinkedQueue :public QueueADT<T>
 private:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
-	int count;
+	int queue_count;
 public:
 	LinkedQueue();
 	bool isEmpty() const;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	Node<T>* getFront() const;
+	int get_count();
 	~LinkedQueue();
 
 	//copy constructor
@@ -76,7 +78,7 @@ The constructor of the Queue class.
 template <typename T>
 LinkedQueue<T>::LinkedQueue()
 {
-	count = 0;
+	queue_count = 0;
 	backPtr = nullptr;
 	frontPtr = nullptr;
 
@@ -116,6 +118,7 @@ bool LinkedQueue<T>::enqueue(const T& newEntry)
 		backPtr->setNext(newNodePtr); // The queue was not empty
 
 	backPtr = newNodePtr; // New node is the last node now
+	++queue_count;
 	return true;
 } // end enqueue
 
@@ -145,7 +148,7 @@ bool LinkedQueue<T>::dequeue(T& frntEntry)
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
-
+	--queue_count;
 	return true;
 
 }
@@ -167,6 +170,11 @@ bool LinkedQueue<T>::peek(T& frntEntry) const
 	return true;
 
 }
+template<typename T>
+Node<T>* LinkedQueue<T>::getFront() const
+{
+	return frontPtr;
+}
 ///////////////////////////////////////////////////////////////////////////////////
 /*
 Function: destructor
@@ -176,7 +184,7 @@ template <typename T>
 LinkedQueue<T>::~LinkedQueue()
 {
 	T temp;
-
+	queue_count = 0;
 	//Free (Dequeue) all nodes in the queue
 	while (dequeue(temp));
 }
@@ -196,6 +204,7 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 	Node<T>* NodePtr = LQ.frontPtr;
 	if (!NodePtr) //LQ is empty
 	{
+		queue_count = 0;
 		frontPtr = backPtr = nullptr;
 		return;
 	}
@@ -204,7 +213,7 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 	Node<T>* ptr = new Node<T>(NodePtr->getItem());
 	frontPtr = backPtr = ptr;
 	NodePtr = NodePtr->getNext();
-
+	++queue_count;
 	//insert remaining nodes
 	while (NodePtr)
 	{
@@ -212,7 +221,12 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 		backPtr->setNext(ptr);
 		backPtr = ptr;
 		NodePtr = NodePtr->getNext();
+		++queue_count;
 	}
+}
+template <typename T>
+int LinkedQueue<T>::get_count() {
+	return queue_count;
 }
 
 #endif
