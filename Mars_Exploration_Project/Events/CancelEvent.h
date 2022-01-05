@@ -5,11 +5,13 @@
 
 class CancellationEvent : public Event {
 private:
-
+	
 public:
 	CancellationEvent(sint32 M_ID, sint32 Event_Day);
 
 	void Execute(Mission* MissionToCancel);
+
+	
 
 	~CancellationEvent();
 };

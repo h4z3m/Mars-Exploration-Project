@@ -219,6 +219,49 @@ void Station::AddEmergencyMission(Mission* M, int Significance) {
 	EmergencyMissions.enqueue(M, Significance);
 }
 
+Mission* Station::GetRequestedMission(int Id) {
+	int i = 1;
+	Mission* temp = NULL;
+	//if mountainous missons list is not empty
+	while(!MountainMissions.isEmpty()) {
+
+		temp = MountainMissions.getEntry(i);
+		if (temp) {
+			if (temp->get_id() == Id) {
+				break;
+			}
+		}
+		else
+			i++;
+	}
+
+	return temp;
+}
+
+void Station::CancelMission(int Id) {
+
+	int i = 1;
+	Mission* temp = NULL;
+	//while mountainous missons list is not empty
+	while (!MountainMissions.isEmpty()) {
+
+		temp = MountainMissions.getEntry(i);
+		if (temp) {
+			if (temp->get_id() == Id) {
+				break;
+			}
+		}
+		else
+			i++;
+	}
+
+	MountainMissions.DeletePosition(i);
+}
+
+void Station::AddEmergencyMission(Mission* M, int Significance) {
+	EmergencyMissions.enqueue(M, Significance);
+}
+
 
 
 

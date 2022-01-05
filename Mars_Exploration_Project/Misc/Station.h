@@ -91,4 +91,11 @@ private:
 	void pair(Mission mission, Rover rover);
 
 
+	Mission* GetRequestedMission(int Id);
+
+	void CancelMission(int ID);
+
+	void AddEmergencyMission(Mission* M, int Significance);
+
+	void retrieve_rover();
 };

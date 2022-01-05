@@ -16,6 +16,13 @@ void PromotionEvent::Execute(Station* S) {
 
 	S->AddEmergencyMission(temp, temp->get_significance());
 
+
+
+	
+
+
+
+
 }
 
 PromotionEvent::~PromotionEvent() {}
