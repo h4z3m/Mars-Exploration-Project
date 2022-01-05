@@ -9,6 +9,7 @@ class LinkedList
 private:
 	LNode<T> *Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
+	int itemCount;
 public:
 
 
@@ -183,6 +184,19 @@ public:
 		Node<T>* nodePtr = getNodeAt(position);
 		return nodePtr->getItem();
 
+	}
+
+	Node<T>* getNodeAt(int position)
+	{
+
+		if (position < 1 || position > itemCount)
+			return nullptr;
+
+		Node<T>* curPtr = Head;
+		for (int skip = 1; skip < position; skip++)
+			curPtr = curPtr->getNext();
+
+		return curPtr;
 	}
 
 
