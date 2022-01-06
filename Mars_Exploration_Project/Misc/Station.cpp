@@ -15,6 +15,8 @@ void Station::Simulate_Station()
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty()) {
+		//check autopromotions 0
+		check_auto_promotion();
 		// 1 - Gather daily events
 		while (Events.peek(EventOfToday)) {
 			//Check if event day matches current day
@@ -893,4 +895,24 @@ void Station::print_day() {
 	
 	}
 	return;
+}
+
+void Station::check_auto_promotion()
+{
+	Mission* tempMission = nullptr;
+
+	LNode<Mission*>* mNode = MountainMissions.getHead();
+	int counter_of_mission = 0;
+	while (mNode) {
+		tempMission = mNode->getItem();
+	
+		if ((current_day - tempMission->get_formulation_day())>= AutoPromotionLimit)
+		{
+			tempMission->set_mission_type(EMERGENCY);
+			EmergencyMissions.enqueue(tempMission, tempMission->get_significance());
+			//MountainMissions.DeletePosition(counter_of_mission);
+		}
+		mNode = mNode->getNext();
+		counter_of_mission++;
+	}
 }

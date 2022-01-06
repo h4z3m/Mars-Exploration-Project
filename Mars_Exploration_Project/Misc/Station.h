@@ -150,5 +150,6 @@ public:
 
 	void retrieve_rover();
 	void print_day();
+	void check_auto_promotion();
 };
 

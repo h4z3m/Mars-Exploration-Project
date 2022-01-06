@@ -9,6 +9,7 @@ class Mission
 		int significance;
 		int id;
 		int start_day;
+		int WD;
 
 	public:
 		Mission();
@@ -34,6 +35,9 @@ class Mission
 
 		void set_start_day(int start);
 		int get_start_day();
+
+		void set_wd();
+		int get_wd();
 	
 };
 

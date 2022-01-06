@@ -89,3 +89,13 @@ int Mission::get_start_day()
 {
 	return start_day;
 }
+
+void Mission::set_wd()
+{
+	WD = start_day - formulation_day;
+}
+
+int Mission::get_wd()
+{
+	return WD;
+}
