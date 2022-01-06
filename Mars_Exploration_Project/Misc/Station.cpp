@@ -248,10 +248,13 @@ bool Station::IO_OutputFile()
 {
 	ofstream outputfile;
 	outputfile.open("output.txt");
+	outputfile.precision(3);
 	///write output here
 		outputfile << "CD   ID   FD   WD   ED"<<endl;
 		Mission* tempMission = nullptr;
-
+		float total_wait=0;
+		float total_execution=0;
+		int total_rovers = EmergencyRovers.get_count() + PolarRovers.get_count() + MountainRovers.get_count();
 		PriNode<Mission*>* emNode = CompletedMissions.getPFront();
 		while (emNode) {
 			tempMission = emNode->getItem();
@@ -260,10 +263,18 @@ bool Station::IO_OutputFile()
 			int FD = tempMission->get_formulation_day();
 			int WD = tempMission->get_wd();
 			int ED = tempMission->get_ed();
+			total_wait = total_wait + WD;
+			total_execution = total_execution + ED;
 			outputfile << CD <<"    "<<ID<<"    "<<FD<<"    "<<WD<<"    "<<ED<<endl;
 			emNode = emNode->getNext();
 		}
-
+		outputfile << "******************************************"<<endl;
+		outputfile << "******************************************"<<endl;
+		outputfile << "Missions:" << CompletedMissions.get_count() << "    ";
+		outputfile << "[M: " << M_completed_missions << ", P:" << P_completed_missions << ", E:" << E_completed_missions <<"]"<<endl;
+		outputfile << "Rovers: " << total_rovers << "    [M:" << MountainRovers.get_count() << ", P:" << PolarRovers.get_count() << ", E:" << EmergencyRovers.get_count()<<"]"<<endl;
+		outputfile << "Average Wait = " << total_wait/ CompletedMissions.get_count()<<", Avg Exec = "<< total_execution / CompletedMissions.get_count()<<endl;
+		outputfile << "Auto-promoted: ";
 
 
 
