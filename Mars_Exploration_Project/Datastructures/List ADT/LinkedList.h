@@ -121,7 +121,7 @@ public:
 		}
 	}
 
-	template <typename T>
+
 	void DeletePosition(int position)
 	{
 		if (Head == nullptr)
@@ -137,21 +137,23 @@ public:
 		else if (position == getCount())
 		{
 			LNode<T>* ptr = Head;
-			for (int i = 1; i < position--; i++)
+			--position;
+			for (int i = 1; i < position; i++)
 				ptr = ptr->getNext();
 			ptr->setNext(nullptr);
-			--count;
+			//--count;
 		}
 		else
 		{
-			LNode<T>* before = Head;		//pointer before the item inserted
+			LNode<T>* before = Head;        //pointer before the item inserted
 			LNode<T>* deleted = Head;
-			for (int i = 1; i < position--; i++)
+			--position;
+			for (int i = 1; i < position; i++)
 				before = before->getNext();
 			deleted = before->getNext();
 			before->setNext(deleted->getNext());
 			delete deleted;
-			--count;
+			//--count;
 		}
 	}
 

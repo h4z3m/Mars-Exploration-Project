@@ -12,9 +12,9 @@
 #include "../Datastructures/List ADT/LinkedList.h"
 /*
 * Class: Station
-* 
+*
 * Description:
-* 
+*
 * This class is the maestro class that manages the system. It should have member functions to:
 *	1- At program startup, open the input file and load rovers data to fill rovers list(s) and to load
 *	the events list.
@@ -39,8 +39,10 @@ private:
 	int M_completed_missions = 0;
 	int P_completed_missions = 0;
 	char display_mode = Interactive;
+	float total_mountain_formulated = 0;
+	float total_auto_promotion = 0;
 	/// </STATS>
-	
+
 
 	/// <Station info>
 	sint32 current_day;
@@ -51,16 +53,16 @@ private:
 	sint32 M_Rover_Speed;
 	sint32 P_Rover_Speed;
 	sint32 E_Rover_Speed;
-	
+
 	sint32 Rover_Max_Missions;
-	
+
 	sint32 M_Rover_InCheckupDuration;
 	sint32 P_Rover_InCheckupDuration;
 	sint32 E_Rover_InCheckupDuration;
 	sint32 AutoPromotionLimit;
 	sint32 EventCount;
 	/// </Station info>
-	
+
 	/// <Missions' list>
 	LinkedQueue<Event*> Events;
 	PriQ<Mission*> CompletedMissions;
@@ -68,7 +70,7 @@ private:
 	LinkedQueue<Mission*> PolarMissions;
 	LinkedList<Mission*> MountainMissions;
 	/// </Missions' list>
-	
+
 	/// <Rovers list>
 	PriQ<Rover*> InExecutionRovers;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
@@ -77,12 +79,12 @@ private:
 	PriQ<Rover*> PolarRovers;
 	PriQ<Rover*> EmergencyRovers;
 	PriQ<Rover*> MountainRovers;
-	
+
 	/// </Rovers list>
-	
+
 	//Private Utility Functions
-	template<typename U,typename... Types>
-	U IO_ReadLine(ifstream file, U data1,Types... data2);
+	template<typename U, typename... Types>
+	U IO_ReadLine(ifstream file, U data1, Types... data2);
 	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile();
@@ -99,11 +101,11 @@ public:
 	/// /return these private///
 	UI App;
 
-	
+
 
 	/*
 	* Function: Station (Constructor)
-	* Description: 
+	* Description:
 	*	1. Read input file at startup
 	*	2. Load events, rovers, and mission queues
 	*/
@@ -112,26 +114,26 @@ public:
 	void Simulate_Station();
 
 	~Station();
-	
+
 	/*
-	* Function: pair 
+	* Function: pair
 	* Description:
 	*	Pairs a mission with the best possible rover available depending on
 	*	the type of mission
 	*/
-	void pair(Mission *mission, Rover *rover);
+	void pair(Mission* mission, Rover* rover);
 	///////////Ending day of missions
 	/*
 	* Function: end_day
 	* Description:
-	*	
-	*	
+	*
+	*
 	*/
 	int end_day(Mission* mission, Rover* rover);
 	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
 	int return_day_of_rover(Rover* rover);
 	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
-	
+
 	/// <Statistics related functions>
 	int get_e_completed_missions();
 	int get_p_completed_missions();

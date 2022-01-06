@@ -32,6 +32,7 @@ void Station::Simulate_Station()
 						break;
 					case MOUNTAIN:
 						EventOfToday->Execute(MountainMissions);
+						total_mountain_formulated++;
 						break;
 					case POLAR:
 						EventOfToday->Execute(PolarMissions);
@@ -59,13 +60,13 @@ void Station::Simulate_Station()
 				EmergencyRovers.dequeue(Outgoing_Rover);
 				EmergencyMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-			/*	App.UI_printString("em mission - em rover\n");*/
+				/*	App.UI_printString("em mission - em rover\n");*/
 			}
 			else if (!MountainRovers.isEmpty()) {
 				MountainRovers.dequeue(Outgoing_Rover);
 				EmergencyMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-			/*	App.UI_printString("em mission - mountain rover\n");*/
+				/*	App.UI_printString("em mission - mountain rover\n");*/
 
 
 			}
@@ -77,7 +78,7 @@ void Station::Simulate_Station()
 
 			}
 			else {
-			/*	App.UI_printString((const char*)"No rovers available for em missions\n");*/
+				/*	App.UI_printString((const char*)"No rovers available for em missions\n");*/
 				break;
 			}
 		}
@@ -90,7 +91,7 @@ void Station::Simulate_Station()
 				PolarRovers.dequeue(Outgoing_Rover);
 				PolarMissions.dequeue(Outgoing_Mission);
 				pair(Outgoing_Mission, Outgoing_Rover);
-			/*	App.UI_printString("polar mission - polar rover\n");*/
+				/*	App.UI_printString("polar mission - polar rover\n");*/
 
 			}
 			else {
@@ -149,7 +150,7 @@ void Station::Init_Rovers(char type, unsigned int count, unsigned int speed, uns
 
 	}
 	for (unsigned int i = 0; i < count; ++i) {
-		Rover* newRover = new Rover(InCheckupDuration, speed, type, MaxMissions,i+1);
+		Rover* newRover = new Rover(InCheckupDuration, speed, type, MaxMissions, i + 1);
 		//Enqueue new rover and give its speed as priority
 		//The higher the speed, the higher the priority
 		tempPtr->enqueue(newRover, speed);
@@ -250,31 +251,31 @@ bool Station::IO_OutputFile()
 	outputfile.open("output.txt");
 	outputfile.precision(3);
 	///write output here
-		outputfile << "CD   ID   FD   WD   ED"<<endl;
-		Mission* tempMission = nullptr;
-		float total_wait=0;
-		float total_execution=0;
-		int total_rovers = EmergencyRovers.get_count() + PolarRovers.get_count() + MountainRovers.get_count();
-		PriNode<Mission*>* emNode = CompletedMissions.getPFront();
-		while (emNode) {
-			tempMission = emNode->getItem();
-			int CD = tempMission->get_cd();
-			int ID = tempMission->get_id();
-			int FD = tempMission->get_formulation_day();
-			int WD = tempMission->get_wd();
-			int ED = tempMission->get_ed();
-			total_wait = total_wait + WD;
-			total_execution = total_execution + ED;
-			outputfile << CD <<"    "<<ID<<"    "<<FD<<"    "<<WD<<"    "<<ED<<endl;
-			emNode = emNode->getNext();
-		}
-		outputfile << "******************************************"<<endl;
-		outputfile << "******************************************"<<endl;
-		outputfile << "Missions:" << CompletedMissions.get_count() << "    ";
-		outputfile << "[M: " << M_completed_missions << ", P:" << P_completed_missions << ", E:" << E_completed_missions <<"]"<<endl;
-		outputfile << "Rovers: " << total_rovers << "    [M:" << MountainRovers.get_count() << ", P:" << PolarRovers.get_count() << ", E:" << EmergencyRovers.get_count()<<"]"<<endl;
-		outputfile << "Average Wait = " << total_wait/ CompletedMissions.get_count()<<", Avg Exec = "<< total_execution / CompletedMissions.get_count()<<endl;
-		outputfile << "Auto-promoted: ";
+	outputfile << "CD   ID   FD   WD   ED" << endl;
+	Mission* tempMission = nullptr;
+	float total_wait = 0;
+	float total_execution = 0;
+	int total_rovers = EmergencyRovers.get_count() + PolarRovers.get_count() + MountainRovers.get_count();
+	PriNode<Mission*>* emNode = CompletedMissions.getPFront();
+	while (emNode) {
+		tempMission = emNode->getItem();
+		int CD = tempMission->get_cd();
+		int ID = tempMission->get_id();
+		int FD = tempMission->get_formulation_day();
+		int WD = tempMission->get_wd();
+		int ED = tempMission->get_ed();
+		total_wait = total_wait + WD;
+		total_execution = total_execution + ED;
+		outputfile << CD << "    " << ID << "    " << FD << "    " << WD << "    " << ED << endl;
+		emNode = emNode->getNext();
+	}
+	outputfile << "******************************************" << endl;
+	outputfile << "******************************************" << endl;
+	outputfile << "Missions:" << CompletedMissions.get_count() << "    ";
+	outputfile << "[M: " << M_completed_missions << ", P:" << P_completed_missions << ", E:" << E_completed_missions << "]" << endl;
+	outputfile << "Rovers: " << total_rovers << "    [M:" << MountainRovers.get_count() << ", P:" << PolarRovers.get_count() << ", E:" << EmergencyRovers.get_count() << "]" << endl;
+	outputfile << "Average Wait = " << total_wait / CompletedMissions.get_count() << ", Avg Exec = " << total_execution / CompletedMissions.get_count() << endl;
+	outputfile << "Auto-promoted: " << 100 * (total_auto_promotion / total_mountain_formulated)<<"%";
 
 
 
@@ -402,6 +403,7 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	{
 		/////enqueu in mountain when linked list is made
 		MountainMissions.InsertBeg(temp_mission);
+
 	}
 	else if (type == 'E')
 	{
@@ -426,8 +428,8 @@ void Station::retrieve_rover()
 		temp_mission->set_cd(current_day);
 		CompletedMissions.enqueue(temp_mission, -temp_mission->get_cd());
 		temp_rover->decrement_actual_time_till_checkup();
-		
-		
+
+
 		temp_rover->set_mission(nullptr);
 		if (temp_rover->get_actual_time_till_checkup() == 0)
 		{
@@ -520,7 +522,7 @@ void Station::print_waiting_missions() {
 	stringstream buff;
 
 	/***************Waiting Missions line******************/
-	buff << BOLDYELLOW<< EmergencyMissions.get_count() + PolarMissions.get_count() + MountainMissions.getCount() << RED << "  Waiting " << YELLOW << "Missions: " << WHITE << "[";
+	buff << BOLDYELLOW << EmergencyMissions.get_count() + PolarMissions.get_count() + MountainMissions.getCount() << RED << "  Waiting " << YELLOW << "Missions: " << WHITE << "[";
 
 	/* Get waiting emergency missions*/
 	App.UI_printStringColor(BOLDWHITE, buff);
@@ -584,7 +586,7 @@ void Station::print_waiting_missions() {
 
 		mNode = mNode->getNext();
 	}
-	buff << "} "<<endl;
+	buff << "} " << endl;
 	App.UI_printStringColor(WHITE, buff);
 }
 void Station::print_inexec_missionsrovers() {
@@ -592,7 +594,7 @@ void Station::print_inexec_missionsrovers() {
 	stringstream buff;
 	/**Emergency Missions/Rovers**/
 	int execution_missions_count = InExecutionRovers.get_count();
-	buff << BOLDRED << execution_missions_count << YELLOW <<" In-Execution "<<CYAN <<"Missions"<<WHITE<<"/"<< YELLOW<<"Rovers: " << WHITE <<"[ ";
+	buff << BOLDRED << execution_missions_count << YELLOW << " In-Execution " << CYAN << "Missions" << WHITE << "/" << YELLOW << "Rovers: " << WHITE << "[ ";
 	App.UI_printStringColor(WHITE, buff);
 	Rover* tempRover = nullptr;
 	PriNode<Rover*>* emRoverNode = InExecutionRovers.getPFront();
@@ -654,15 +656,15 @@ void Station::print_inexec_missionsrovers() {
 
 		mRoverNode = mRoverNode->getNext();
 	}
-	buff << " } "<<endl;
+	buff << " } " << endl;
 	App.UI_printStringColor(WHITE, buff);
 }
 void Station::print_avail_rovers()
 {
 	stringstream buff;
 	/**Emergency Missions/Rovers**/
-	int total_avail_rovers = EmergencyRovers.get_count()+PolarRovers.get_count()+MountainRovers.get_count();
-	buff << BOLDRED << total_avail_rovers << GREEN << " Available" <<YELLOW<<" Rovers: " << WHITE << "[";
+	int total_avail_rovers = EmergencyRovers.get_count() + PolarRovers.get_count() + MountainRovers.get_count();
+	buff << BOLDRED << total_avail_rovers << GREEN << " Available" << YELLOW << " Rovers: " << WHITE << "[";
 	App.UI_printStringColor(WHITE, buff);
 	Rover* tempRover = nullptr;
 	PriNode<Rover*>* emRoverNode = EmergencyRovers.getPFront();
@@ -726,7 +728,7 @@ void Station::print_avail_rovers()
 
 		mRoverNode = mRoverNode->getNext();
 	}
-	buff << " } "<<endl;
+	buff << " } " << endl;
 	App.UI_printStringColor(WHITE, buff);
 }
 void Station::print_incheckup_rovers()
@@ -735,7 +737,7 @@ void Station::print_incheckup_rovers()
 
 	/* Display current day*/
 	int total_incheckup_rovers = InCheckupEmergencyRovers.get_count() + InCheckupMountainRovers.get_count() + InCheckupPolarRovers.get_count();
-	buff << BOLDMAGENTA <<  total_incheckup_rovers<< RED << "  In-Checkup "<< YELLOW<<"Rovers: " << WHITE << " [ ";
+	buff << BOLDMAGENTA << total_incheckup_rovers << RED << "  In-Checkup " << YELLOW << "Rovers: " << WHITE << " [ ";
 
 	/* Get waiting emergency missions*/
 	App.UI_printStringColor(BOLDWHITE, buff);
@@ -799,7 +801,7 @@ void Station::print_incheckup_rovers()
 
 		mRoverNode = mRoverNode->getNext();
 	}
-	buff << "} "<<endl;
+	buff << "} " << endl;
 	App.UI_printStringColor(WHITE, buff);
 }
 void Station::print_completed_missions()
@@ -807,7 +809,7 @@ void Station::print_completed_missions()
 	stringstream buff;
 
 	/***************Waiting Missions line******************/
-	buff << BOLDMAGENTA << CompletedMissions.get_count()<< GREEN << "  Completed" << CYAN <<" Missions: " << WHITE << " [ ";
+	buff << BOLDMAGENTA << CompletedMissions.get_count() << GREEN << "  Completed" << CYAN << " Missions: " << WHITE << " [ ";
 
 	/* Get waiting emergency missions*/
 	App.UI_printStringColor(BOLDWHITE, buff);
@@ -823,7 +825,7 @@ void Station::print_completed_missions()
 			App.UI_printStringColor(BLUE, buff);
 		}
 
-		
+
 
 		emNode = emNode->getNext();
 	}
@@ -843,11 +845,11 @@ void Station::print_completed_missions()
 		if (tempMission->get_mission_type() == 'P') {
 			buff << tempMission->get_id();
 			App.UI_printStringColor(WHITE, buff);
-				buff << " , ";
-				App.UI_printStringColor(BLUE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
 		}
 
-		
+
 		pNode = pNode->getNext();
 	}
 	buff << " ) ";
@@ -864,20 +866,20 @@ void Station::print_completed_missions()
 		if (tempMission->get_mission_type() == 'M') {
 			buff << tempMission->get_id();
 			App.UI_printStringColor(WHITE, buff);
-				buff << " , ";
-				App.UI_printStringColor(BLUE, buff);
+			buff << " , ";
+			App.UI_printStringColor(BLUE, buff);
 		}
 
-		
+
 
 		mNode = mNode->getNext();
 	}
-	buff << "} "<<endl;
+	buff << "} " << endl;
 	App.UI_printStringColor(WHITE, buff);
 }
 void Station::print_line() {
 	stringstream str;
-	str << "-------------------------------------------------------------------------------"<<endl;
+	str << "-------------------------------------------------------------------------------" << endl;
 	App.UI_printStringColor(WHITE, str);
 }
 void Station::print_day() {
@@ -885,7 +887,7 @@ void Station::print_day() {
 	stringstream ss;
 	switch (display_mode) {
 	case Interactive:
-		ss << "Interactive Mode"<<endl;
+		ss << "Interactive Mode" << endl;
 		App.UI_printStringColor(BOLDWHITE, ss);
 		break;
 	case StepByStep:
@@ -901,7 +903,7 @@ void Station::print_day() {
 
 
 	}
-	ss << WHITE << "Current day: " <<current_day<<endl;
+	ss << WHITE << "Current day: " << current_day << endl;
 	App.UI_printStringColor(BOLDWHITE, ss);
 	/*********Waiting missions*********/
 	print_waiting_missions();
@@ -929,7 +931,7 @@ void Station::print_day() {
 
 		break;
 
-	
+
 	}
 	return;
 }
@@ -937,19 +939,28 @@ void Station::print_day() {
 void Station::check_auto_promotion()
 {
 	Mission* tempMission = nullptr;
-
 	LNode<Mission*>* mNode = MountainMissions.getHead();
-	int counter_of_mission = 0;
-	while (mNode) {
+	int counter_of_mission = 1;
+	int mountaincount = MountainMissions.getCount();
+	while (counter_of_mission <= mountaincount) {
 		tempMission = mNode->getItem();
-	
-		if ((current_day - tempMission->get_formulation_day())>= AutoPromotionLimit)
+
+		if ((current_day - tempMission->get_formulation_day()) >= AutoPromotionLimit)
 		{
+			mNode = mNode->getNext();
 			tempMission->set_mission_type(EMERGENCY);
 			EmergencyMissions.enqueue(tempMission, tempMission->get_significance());
-			//MountainMissions.DeletePosition(counter_of_mission);
+			MountainMissions.DeletePosition(counter_of_mission);
+			mountaincount--;
+			total_auto_promotion++;
+
 		}
-		mNode = mNode->getNext();
-		counter_of_mission++;
+		else
+		{
+			counter_of_mission++;
+			mNode = mNode->getNext();
+		}
+
+
 	}
 }
