@@ -10,6 +10,7 @@ class Mission
 		int id;
 		int start_day;
 		int WD;
+		int CD;
 
 	public:
 		Mission();
@@ -38,6 +39,11 @@ class Mission
 
 		void set_wd();
 		int get_wd();
+
+		void set_cd(int day_completed);
+		int get_cd();
+
+		int get_ed();
 	
 };
 

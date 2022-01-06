@@ -42,6 +42,7 @@ int main()
 	Station home;
 	home.Simulate_Station();
 
+	
 	/*
 	home.App.print_rover_info(&r1);
 	home.add_polar_rover(5, 99, 99, 99);

@@ -99,3 +99,18 @@ int Mission::get_wd()
 {
 	return WD;
 }
+
+void Mission::set_cd(int day_completed)
+{
+	CD = day_completed;
+}
+
+int Mission::get_cd()
+{
+	return CD;
+}
+
+int Mission::get_ed()
+{
+	return CD - start_day;
+}

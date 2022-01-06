@@ -85,7 +85,7 @@ private:
 	U IO_ReadLine(ifstream file, U data1,Types... data2);
 	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
-	bool IO_OutputFile(LinkedQueue<Event*>*& OutputList);
+	bool IO_OutputFile();
 	void retrieve_rover_from_checkup();
 	void print_waiting_missions();
 	void print_inexec_missionsrovers();

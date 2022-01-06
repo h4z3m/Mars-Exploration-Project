@@ -126,7 +126,7 @@ void Station::Simulate_Station()
 		App.UI_clear_screen();
 		++current_day;
 	}
-
+	IO_OutputFile();
 }
 
 void Station::Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int InCheckupDuration, unsigned int MaxMissions)
@@ -244,8 +244,30 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 	}
 }
 
-bool Station::IO_OutputFile(LinkedQueue<Event*>*& OutputList)
+bool Station::IO_OutputFile()
 {
+	ofstream outputfile;
+	outputfile.open("output.txt");
+	///write output here
+		outputfile << "CD   ID   FD   WD   ED"<<endl;
+		Mission* tempMission = nullptr;
+
+		PriNode<Mission*>* emNode = CompletedMissions.getPFront();
+		while (emNode) {
+			tempMission = emNode->getItem();
+			int CD = tempMission->get_cd();
+			int ID = tempMission->get_id();
+			int FD = tempMission->get_formulation_day();
+			int WD = tempMission->get_wd();
+			int ED = tempMission->get_ed();
+			outputfile << CD <<"    "<<ID<<"    "<<FD<<"    "<<WD<<"    "<<ED<<endl;
+			emNode = emNode->getNext();
+		}
+
+
+
+
+	outputfile.close();
 	return false;
 }
 
@@ -260,6 +282,7 @@ void Station::pair(Mission* mission, Rover* rover)
 	int piority = end_day(mission, rover);
 	rover->set_mission(mission);
 	mission->set_start_day(current_day);
+	mission->set_wd();
 	InExecutionRovers.enqueue(rover, -piority);
 
 
@@ -388,9 +411,12 @@ void Station::retrieve_rover()
 	{
 		InExecutionRovers.dequeue(temp_rover);
 		// TODO : COMPUTE RETURN DAY PRIORITY///////////////////
-		CompletedMissions.enqueue(temp_rover->get_mission(), 1);
-		temp_rover->decrement_actual_time_till_checkup();
 		temp_mission = temp_rover->get_mission();
+		temp_mission->set_cd(current_day);
+		CompletedMissions.enqueue(temp_mission, -temp_mission->get_cd());
+		temp_rover->decrement_actual_time_till_checkup();
+		
+		
 		temp_rover->set_mission(nullptr);
 		if (temp_rover->get_actual_time_till_checkup() == 0)
 		{
