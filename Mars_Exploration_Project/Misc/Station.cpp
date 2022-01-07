@@ -24,15 +24,15 @@ void Station::Simulate_Station()
 				//Remove from queue
 				Events.dequeue(EventOfToday);
 				//Check for type of event
-				if (dynamic_cast<FormulationEvent>(EventOfToday)) {
-					EventOfToday->Execute(this);
+				if (dynamic_cast<FormulationEvent*>(EventOfToday)) {
+					EventOfToday->Execute();
 				}
-				else if (dynamic_cast<CancellationEvent>(EventOfToday)) {
-					EventOfToday->Execute(this);
+				else if (dynamic_cast<CancellationEvent*>(EventOfToday)) {
+					EventOfToday->Execute();
 				}
 				else {
 					dynamic_cast<PromotionEvent*>(EventOfToday);
-					EventOfToday->Execute(this);
+					EventOfToday->Execute();
 				}
 			}
 			else {
@@ -222,7 +222,8 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				ss.str(""); ss.clear();
 				ss << line;
 				while (ss >> dummy >> event_day >> mission_ID);
-				PromotionEvent* newP_Event = new PromotionEvent(mission_ID, event_day);
+				PromotionEvent* newP_Event = new PromotionEvent(mission_ID, event_day, PolarMissions, EmergencyMissions, MountainMissions);
+				Events.enqueue(newP_Event);
 
 
 				while (ss >> dummy >> event_day >> mission_ID);
@@ -232,7 +233,8 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				ss.str(""); ss.clear();
 				ss << line;
 				while (ss >> dummy >> event_day >> mission_ID);
-
+				CancellationEvent* newC_Event = new CancellationEvent(mission_ID, event_day, PolarMissions, EmergencyMissions, MountainMissions);
+				Events.enqueue(newC_Event);
 			}
 			else {
 
@@ -300,9 +302,6 @@ void Station::pair(Mission* mission, Rover* rover)
 
 	///add for mountain after including linked list
 }
-
-
-
 int Station::return_day_of_rover(Rover* rover)
 {
 	Mission* temp_mission;
@@ -393,26 +392,6 @@ int Station::end_day(Mission* mission, Rover* rover)
 //
 //	}
 //}
-
-void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG)
-{
-
-	Mission* temp_mission;
-	temp_mission = new Mission(type, ED, TLOC, MDUR, SIG, ID);
-	if (type == 'M')
-	{
-		/////enqueu in mountain when linked list is made
-		MountainMissions.InsertBeg(temp_mission);
-	}
-	else if (type == 'E')
-	{
-		EmergencyMissions.enqueue(temp_mission, SIG);
-	}
-	else if (type == 'P')
-	{
-		PolarMissions.enqueue(temp_mission);
-	}
-}
 
 void Station::set_display_mode()
 {
@@ -970,40 +949,4 @@ void Station::check_auto_promotion()
 		}
 
 	}
-}
-
-//so that i use it in both cancellation & promotion events
-bool Station::DeleteFromMountList(int id, Mission*& mission)
-{
-	int i = 1;
-	Mission* temp = NULL;
-	while (!MountainMissions.isEmpty())
-	{
-		temp = MountainMissions.getEntry(i);
-		if (temp)
-		{
-			if (temp->get_id() == id)
-			{
-				mission = temp;
-				break;
-			}
-		}
-		else
-			break;
-		i++;
-	}
-
-	if (mission != nullptr) {
-		MountainMissions.remove(i);
-		return true;
-	}
-
-	else
-		return false;
-
-}
-
-void Station::AddToEmergencyList(Mission* mission, int priority)
-{
-	EmergencyMissions.enqueue(mission, priority);
 }

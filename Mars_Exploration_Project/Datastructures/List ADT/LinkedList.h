@@ -173,7 +173,7 @@ public:
 			Head = Head->getNext();
 		}
 
-		// Free memory reserved for the dequeued node
+		// Free memory reserved for the dequeued LNode
 		delete nodeToDeletePtr;
 		--count;
 		return true;
@@ -189,13 +189,13 @@ public:
 		return Head;
 	}
 
-	Node<T>* getNodeAt(int position)
+	LNode<T>* getNodeAt(int position)
 	{
 
 		if (position < 1 || position > count)
 			return nullptr;
 
-		Node<T>* curPtr = Head;
+		LNode<T>* curPtr = Head;
 		for (int skip = 1; skip < position; skip++)
 			curPtr = curPtr->getNext();
 
@@ -208,7 +208,7 @@ public:
 		{
 			return nullptr;
 		}
-		Node<T>* nodePtr = getNodeAt(position);
+		LNode<T>* nodePtr = getNodeAt(position);
 		return nodePtr->getItem();
 
 	}
@@ -219,7 +219,7 @@ public:
 			return 0;
 
 
-		Node<T>* curr = Head;
+		LNode<T>* curr = Head;
 		if (pos == 1)
 		{
 			curr = Head;
@@ -228,7 +228,7 @@ public:
 
 		else
 		{
-			Node<T>* prev = getNodeAt(pos - 1);
+			LNode<T>* prev = getNodeAt(pos - 1);
 			curr = prev->getNext();
 			prev->setNext(curr->getNext());
 		}

@@ -84,8 +84,7 @@ private:
 	/// </Rovers' list>
 
 	//Private Utility Functions
-	template<typename U, typename... Types>
-	U IO_ReadLine(ifstream file, U data1, Types... data2);
+
 	void Init_Rovers(char type, unsigned int count, unsigned int speed, unsigned int Rover_InCheckupDuration, unsigned int Rover_MaxMissions);
 	bool IO_ReadFile(LinkedQueue<Event*>& ReturnList);
 	bool IO_OutputFile();
@@ -144,18 +143,11 @@ public:
 	int get_total_completed_missions();
 	/// </Statistics related functions>
 
-	void add_polar_rover(int input_number_of_rovers, int SP, int  CP, int N);
-	void add_emergency_rover(int input_number_of_rovers, int SE, int  CE, int N);
-	void add_mountains_rover(int input_number_of_rovers, int SM, int  CM, int N);
-	/*remove to formulate class*/
-	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
 	void set_display_mode();
 	void retrieve_rover();
 	void print_day();
 	void check_auto_promotion();
 
-	bool DeleteFromMountList(int id, Mission*& m);
-	void AddToEmergencyList(Mission* mission, int priority);
 
 };
 

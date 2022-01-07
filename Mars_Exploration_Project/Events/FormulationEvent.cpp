@@ -7,7 +7,6 @@
 FormulationEvent::FormulationEvent()
 {
 }
-
 FormulationEvent::FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig, LinkedQueue<Mission*>& p_m, PriQ<Mission*>& e_m, LinkedList<Mission*>& m_m) : Event(id, eDay, p_m, e_m , m_m)
 {
 	MissionType = mType;
@@ -15,29 +14,25 @@ FormulationEvent::FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 l
 	MissionDuration = dur;
 	MissionSignificance = sig;
 }
-void FormulationEvent::Execute(Station* S)
+void FormulationEvent::Execute()
 {
+	Mission * newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance, Mission_ID);
 	switch (MissionType) {
 		case 'P':
-			Mission * newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance, Mission_ID);
-			P_Missions.enqueue(newM);
+			P_Missions->enqueue(newM);
 			break;
 		case 'E':
-			Mission * newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance, Mission_ID);
-			E_Missions.enqueue(newM, MissionSignificance);
+			E_Missions->enqueue(newM, MissionSignificance);
 			break;
 		case 'M':
-			Mission * newM = new Mission(MissionType, Event_Day, TargetLoc, MissionDuration, MissionSignificance, Mission_ID);
-			M_Missions.InsertBeg(newM);
+			M_Missions->InsertBeg(newM);
 			break;
 	}
 }
-
 sint8 FormulationEvent::getMissionType()
 {
 	return MissionType;
 }
-
 FormulationEvent::~FormulationEvent()
 {
 }
