@@ -12,9 +12,8 @@ public:
 	FormulationEvent();
 	FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig);
 
-	void Execute(LinkedQueue<Mission*> & P_Missions);
-	void Execute(PriQ<Mission*>& E_Missions);
-	void Execute(LinkedList<Mission*>& M_Missions);
+	void Execute(Station* S);
+
 	sint8 getMissionType();
 
 	~FormulationEvent();

@@ -1,6 +1,7 @@
 #pragma once
 #include "../Misc/common_types.h"
 #include "../Missions/Mission.h"
+#include "../Misc/Station.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
 #include "../Datastructures/List ADT/LinkedList.h"
@@ -17,9 +18,7 @@ public:
 	uint32 getEventDay() {
 		return Event_Day;
 	}
-	virtual void Execute(PriQ<Mission*> & P_Missions) = 0;
-	virtual void Execute(LinkedQueue<Mission*>& E_Missions) = 0;
-	virtual void Execute(LinkedList<Mission*>& M_Missions) = 0;
+	virtual void Execute(Station* S);
 
 	virtual sint8 getMissionType() = 0;
 

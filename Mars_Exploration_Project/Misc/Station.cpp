@@ -11,7 +11,7 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
-
+	
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty()) {
@@ -25,21 +25,17 @@ void Station::Simulate_Station()
 				Events.dequeue(EventOfToday);
 				//Check for type of event
 				if (dynamic_cast<FormulationEvent*>(EventOfToday)) {
-					uint8 mtype = EventOfToday->getMissionType();
-					switch (mtype) {
-					case EMERGENCY:
-						EventOfToday->Execute(EmergencyMissions);
-						break;
-					case MOUNTAIN:
-						EventOfToday->Execute(MountainMissions);
-						total_mountain_formulated++;
-						break;
-					case POLAR:
-						EventOfToday->Execute(PolarMissions);
-						break;
-					}
-
+					EventOfToday->Execute(this);
 				}
+				else if (dynamic_cast<CancellationEvent*>(EventOfToday)) {
+					EventOfToday->Execute(this);
+				}
+				else {
+					dynamic_cast<PromotionEvent*>(EventOfToday);
+					EventOfToday->Execute(this);
+				}
+					
+
 
 			}
 			else {
@@ -223,6 +219,10 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				//Promote event here
 				ss.str(""); ss.clear();
 				ss << line;
+				while (ss >> dummy >> event_day >> mission_ID);
+				PromotionEvent* newP_Event = new PromotionEvent(mission_ID, event_day);
+
+
 				while (ss >> dummy >> event_day >> mission_ID);
 			}
 			else if (line.find('X') != string::npos) {
@@ -961,6 +961,41 @@ void Station::check_auto_promotion()
 			mNode = mNode->getNext();
 		}
 
-
 	}
+}
+
+//so that i use it in both cancellation & promotion events
+bool Station::DeleteFromMountList(int id, Mission*& mission)
+{
+	int i = 1;
+	Mission* temp = NULL;
+	while (!MountainMissions.isEmpty())
+	{
+		temp = MountainMissions.getEntry(i);
+		if (temp)
+		{
+			if (temp->get_id() == id)
+			{
+				mission = temp;
+				break;
+			}
+		}
+		else
+			break;
+		i++;
+	}
+
+	if (mission != nullptr) {
+		MountainMissions.remove(i);
+		return true;
+	}
+
+	else
+		return false;
+
+}
+
+void Station::AddToEmergencyList(Mission* mission, int priority)
+{
+	EmergencyMissions.enqueue(mission, priority);
 }

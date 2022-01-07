@@ -5,6 +5,8 @@
 #include <string>
 #include"UI.h"
 #include "../Events/FormulationEvent.h"
+#include "../Events/CancelEvent.h"
+#include "../Events/PromotionEvent.h"
 #include"common_types.h"
 #include "../Rovers/Rover.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
@@ -153,5 +155,9 @@ public:
 	void retrieve_rover();
 	void print_day();
 	void check_auto_promotion();
+
+	bool DeleteFromMountList(int id, Mission*& m);
+	void AddToEmergencyList(Mission* mission, int priority);
+
 };
 
