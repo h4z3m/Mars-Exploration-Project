@@ -27,6 +27,9 @@ void Station::Simulate_Station()
 				Events.dequeue(EventOfToday);
 				//Check for type of event
 				if (dynamic_cast<FormulationEvent*>(EventOfToday)) {
+					sint8 type = dynamic_cast<FormulationEvent*>(EventOfToday)->getMissionType();
+					if (type == MOUNTAIN)
+						total_mountain_formulated++;
 					EventOfToday->Execute();
 				}
 				else if (dynamic_cast<CancellationEvent*>(EventOfToday)) {
@@ -281,7 +284,11 @@ bool Station::IO_OutputFile()
 	outputfile << "[M: " << M_completed_missions << ", P:" << P_completed_missions << ", E:" << E_completed_missions << "]" << endl;
 	outputfile << "Rovers: " << total_rovers << "    [M:" << MountainRovers.get_count() << ", P:" << PolarRovers.get_count() << ", E:" << EmergencyRovers.get_count() << "]" << endl;
 	outputfile << "Average Wait = " << total_wait / CompletedMissions.get_count() << ", Avg Exec = " << total_execution / CompletedMissions.get_count() << endl;
-	outputfile << "Auto-promoted: " << 100 * (total_auto_promotion / total_mountain_formulated)<<"%";
+	if (total_mountain_formulated==0)
+	{
+		total_mountain_formulated++;
+	}
+	outputfile << "Auto-promoted: " << 100 * (total_auto_promotion/total_mountain_formulated)<<"%";
 
 	outputfile.close();
 	if(!outputfile.is_open()) {
