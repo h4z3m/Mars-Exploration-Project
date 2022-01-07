@@ -11,6 +11,8 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
+	set_display_mode();
+	App.UI_clear_screen();
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	
@@ -40,7 +42,7 @@ void Station::Simulate_Station()
 			}
 
 		}
-		// 2 - Retrieve incoming rovers
+		// 2 - Retrieve incoming rovers from missions and checkup
 		retrieve_rover();
 		retrieve_rover_from_checkup();
 		// 3 - Pair available rovers to corresponding missions
@@ -281,10 +283,14 @@ bool Station::IO_OutputFile()
 	outputfile << "Average Wait = " << total_wait / CompletedMissions.get_count() << ", Avg Exec = " << total_execution / CompletedMissions.get_count() << endl;
 	outputfile << "Auto-promoted: " << 100 * (total_auto_promotion / total_mountain_formulated)<<"%";
 
-
-
 	outputfile.close();
-	return false;
+	if(!outputfile.is_open()) {
+		App.UI_printString((const char*)"\nDone!");
+	}
+	else {
+		App.UI_printString((const char*)"\An error occured!");
+		return false;
+	}
 }
 Station::~Station()
 {
@@ -914,7 +920,6 @@ void Station::print_day() {
 		break;
 	case StepByStep:
 		App.UI_DelaySeconds(1);
-
 		break;
 	case Silent:
 

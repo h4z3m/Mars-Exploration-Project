@@ -35,12 +35,13 @@ class Station
 private:
 	ifstream file;
 	string fileName;
+	UI App;
+	char display_mode = Interactive;
 	/// <STATS>
 
 	int E_completed_missions = 0;
 	int M_completed_missions = 0;
 	int P_completed_missions = 0;
-	char display_mode = Interactive;
 	float total_mountain_formulated = 0;
 	float total_auto_promotion = 0;
 	/// </STATS>
@@ -95,26 +96,6 @@ private:
 	void print_incheckup_rovers();
 	void print_completed_missions();
 
-	void print_line();
-
-public:
-	/// /return these private///
-	UI App;
-
-
-
-	/*
-	* Function: Station (Constructor)
-	* Description:
-	*	1. Read input file at startup
-	*	2. Load events, rovers, and mission queues
-	*/
-	Station();
-
-	void Simulate_Station();
-
-	~Station();
-
 	/*
 	* Function: pair
 	* Description:
@@ -125,13 +106,12 @@ public:
 	///////////Ending day of missions
 	/*
 	* Function: end_day
-	* Description: Determines the day at which a mission is 
+	* Description: Determines the day at which a mission is
 	* finished from start day till return day
 	*/
 	int end_day(Mission* mission, Rover* rover);
-	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
+
 	int return_day_of_rover(Rover* rover);
-	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
 
 	/// <Statistics related functions>
 	int get_e_completed_missions();
@@ -147,6 +127,22 @@ public:
 	void retrieve_rover();
 	void print_day();
 	void check_auto_promotion();
+	void print_line();
+
+public:
+
+	/*
+	* Function: Station (Constructor)
+	* Description:
+	*	1. Read input file at startup
+	*	2. Load events, rovers, and mission queues
+	*/
+	Station();
+
+	void Simulate_Station();
+
+	~Station();
+
 
 
 };
