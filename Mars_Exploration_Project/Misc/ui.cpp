@@ -12,8 +12,6 @@ void UI::UI_printStringColor(const char* COLOR_CODE,stringstream& msg)
 	CLEAR_STR(msg);
 }
 
-
-
 string UI::UI_getString()
 {
 	string newString;

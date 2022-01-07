@@ -11,7 +11,6 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
-
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty()) {
@@ -403,7 +402,6 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	{
 		/////enqueu in mountain when linked list is made
 		MountainMissions.InsertBeg(temp_mission);
-
 	}
 	else if (type == 'E')
 	{
