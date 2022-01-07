@@ -1,4 +1,5 @@
 #include "Event.h"
+#include "../Misc/Station.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
 #include "../Datastructures/List ADT/LinkedList.h"
@@ -10,11 +11,8 @@ private:
 	sint8  MissionSignificance;
 public:
 	FormulationEvent();
-	FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig);
-
-	void Execute(LinkedQueue<Mission*> & P_Missions);
-	void Execute(PriQ<Mission*>& E_Missions);
-	void Execute(LinkedList<Mission*>& M_Missions);
+	FormulationEvent(sint8 mType, sint32 eDay, sint32 id, sint32 loc, sint32 dur, sint8 sig, LinkedQueue<Mission*>& p_m, PriQ<Mission*>& e_m, LinkedList<Mission*>& m_m);
+	void Execute(Station* S);
 	sint8 getMissionType();
 
 	~FormulationEvent();

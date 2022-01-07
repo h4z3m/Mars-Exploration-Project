@@ -25,23 +25,16 @@ void Station::Simulate_Station()
 				//Remove from queue
 				Events.dequeue(EventOfToday);
 				//Check for type of event
-				if (dynamic_cast<FormulationEvent*>(EventOfToday)) {
-					uint8 mtype = EventOfToday->getMissionType();
-					switch (mtype) {
-					case EMERGENCY:
-						EventOfToday->Execute(EmergencyMissions);
-						break;
-					case MOUNTAIN:
-						EventOfToday->Execute(MountainMissions);
-						total_mountain_formulated++;
-						break;
-					case POLAR:
-						EventOfToday->Execute(PolarMissions);
-						break;
-					}
-
+				if (dynamic_cast<FormulationEvent>(EventOfToday)) {
+					EventOfToday->Execute(this);
 				}
-
+				else if (dynamic_cast<CancellationEvent>(EventOfToday)) {
+					EventOfToday->Execute(this);
+				}
+				else {
+					dynamic_cast<PromotionEvent*>(EventOfToday);
+					EventOfToday->Execute(this);
+				}
 			}
 			else {
 				break;
@@ -222,7 +215,7 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				ss.str(""); ss.clear();
 				ss << line;
 				while (ss >> dummy >> mission_type >> event_day >> mission_ID >> target_loc >> mission_duration >> mission_significance);
-				FormulationEvent* newF_Event = new FormulationEvent(mission_type, event_day, mission_ID, target_loc, mission_duration, mission_significance);
+				FormulationEvent* newF_Event = new FormulationEvent(mission_type, event_day, mission_ID, target_loc, mission_duration, mission_significance,PolarMissions,EmergencyMissions,MountainMissions);
 				Events.enqueue(newF_Event);
 			}
 			else if (line.find('P') != string::npos) {

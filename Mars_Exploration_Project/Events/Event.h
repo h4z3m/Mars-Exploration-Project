@@ -8,18 +8,25 @@ class Event {
 protected:
 	sint32 Mission_ID;
 	sint32 Event_Day;
+
+	LinkedQueue<Mission*> P_Missions;
+	PriQ<Mission*> E_Missions;
+	LinkedList<Mission*> M_Missions;
+
 public:
 	Event() {}
-	Event(sint32 id,sint32 day) {
+	Event(sint32 id,sint32 day,LinkedQueue<Mission*>& p_m,PriQ<Mission*>& e_m,LinkedList<Mission*>& m_m) {
 		Mission_ID = id;
 		Event_Day = day;
+
+		P_Missions = p_m;
+		E_Missions = e_m;
+		M_Missions = m_m;
 	}
 	uint32 getEventDay() {
 		return Event_Day;
 	}
-	virtual void Execute(PriQ<Mission*> & P_Missions) = 0;
-	virtual void Execute(LinkedQueue<Mission*>& E_Missions) = 0;
-	virtual void Execute(LinkedList<Mission*>& M_Missions) = 0;
+	virtual void Execute(Station* S) = 0;
 
 	virtual sint8 getMissionType() = 0;
 
