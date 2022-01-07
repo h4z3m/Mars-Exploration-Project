@@ -69,11 +69,6 @@ T PriNode<T>::getItem() const
 	return item;
 } 
 
-//template < typename T>
-//T Node<T>::getPrio() const
-//{
-//	return priority;
-//}
 
 template < typename T>
 PriNode<T>* PriNode<T>::getNext() const

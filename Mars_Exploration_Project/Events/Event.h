@@ -1,6 +1,7 @@
 #pragma once
 #include "../Misc/common_types.h"
 #include "../Missions/Mission.h"
+#include "../Misc/Station.h"
 #include "../Datastructures/Queue ADT/LinkedQueue.h"
 #include "../Datastructures/PriQ ADT/PriQ.h"
 #include "../Datastructures/List ADT/LinkedList.h"

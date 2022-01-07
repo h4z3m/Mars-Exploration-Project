@@ -10,6 +10,7 @@ private:
 	LNode<T>* Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
 	int count;
+
 public:
 
 
@@ -188,6 +189,56 @@ public:
 		return Head;
 	}
 
+	Node<T>* getNodeAt(int position)
+	{
+
+		if (position < 1 || position > count)
+			return nullptr;
+
+		Node<T>* curPtr = Head;
+		for (int skip = 1; skip < position; skip++)
+			curPtr = curPtr->getNext();
+
+		return curPtr;
+	}
+
+	T getEntry(int position)
+	{
+		if ((position < 1) || (position > count))
+		{
+			return nullptr;
+		}
+		Node<T>* nodePtr = getNodeAt(position);
+		return nodePtr->getItem();
+
+	}
+
+	bool remove(int pos)
+	{
+		if (!Head || pos > count || pos < 1)
+			return 0;
+
+
+		Node<T>* curr = Head;
+		if (pos == 1)
+		{
+			curr = Head;
+			Head = Head->getNext();
+		}
+
+		else
+		{
+			Node<T>* prev = getNodeAt(pos - 1);
+			curr = prev->getNext();
+			prev->setNext(curr->getNext());
+		}
+
+		curr->setNext(nullptr);
+		delete curr;
+		curr = nullptr;
+		count--;
+		return 1;
+	}
 
 };
 

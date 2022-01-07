@@ -11,7 +11,6 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
-	set_display_mode();
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
 	
@@ -222,6 +221,10 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 				//Promote event here
 				ss.str(""); ss.clear();
 				ss << line;
+				while (ss >> dummy >> event_day >> mission_ID);
+				PromotionEvent* newP_Event = new PromotionEvent(mission_ID, event_day);
+
+
 				while (ss >> dummy >> event_day >> mission_ID);
 			}
 			else if (line.find('X') != string::npos) {
@@ -966,6 +969,41 @@ void Station::check_auto_promotion()
 			mNode = mNode->getNext();
 		}
 
-
 	}
+}
+
+//so that i use it in both cancellation & promotion events
+bool Station::DeleteFromMountList(int id, Mission*& mission)
+{
+	int i = 1;
+	Mission* temp = NULL;
+	while (!MountainMissions.isEmpty())
+	{
+		temp = MountainMissions.getEntry(i);
+		if (temp)
+		{
+			if (temp->get_id() == id)
+			{
+				mission = temp;
+				break;
+			}
+		}
+		else
+			break;
+		i++;
+	}
+
+	if (mission != nullptr) {
+		MountainMissions.remove(i);
+		return true;
+	}
+
+	else
+		return false;
+
+}
+
+void Station::AddToEmergencyList(Mission* mission, int priority)
+{
+	EmergencyMissions.enqueue(mission, priority);
 }
