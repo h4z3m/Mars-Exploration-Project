@@ -413,7 +413,6 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	}
 }
 
-
 void Station::retrieve_rover()
 {
 	Rover* temp_rover;
