@@ -403,7 +403,6 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	{
 		/////enqueu in mountain when linked list is made
 		MountainMissions.InsertBeg(temp_mission);
-
 	}
 	else if (type == 'E')
 	{
@@ -414,7 +413,6 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 		PolarMissions.enqueue(temp_mission);
 	}
 }
-
 
 void Station::retrieve_rover()
 {
