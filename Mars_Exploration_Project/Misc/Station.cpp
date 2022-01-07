@@ -11,9 +11,11 @@ Station::Station()
 
 void Station::Simulate_Station()
 {
+	set_display_mode();
 	Mission* MissionOfToday = nullptr;
 	Event* EventOfToday = nullptr;
-	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty()) {
+	
+	while (!EmergencyMissions.isEmpty() || !PolarMissions.isEmpty() || !MountainMissions.isEmpty() || !InExecutionRovers.isEmpty() || !Events.isEmpty() || !InCheckupEmergencyRovers.isEmpty() || !InCheckupMountainRovers.isEmpty() || !InCheckupPolarRovers.isEmpty()) {
 		//check autopromotions 0
 		check_auto_promotion();
 		// 1 - Gather daily events
@@ -122,9 +124,14 @@ void Station::Simulate_Station()
 				break;
 			}
 		}
-		print_day();
-		App.UI_clear_screen();
+		if (display_mode != Silent) {
+			print_day();
+			App.UI_clear_screen();
+		}
 		++current_day;
+	}
+	if (display_mode != Silent) {
+		print_day();
 	}
 	IO_OutputFile();
 }
@@ -243,12 +250,12 @@ bool Station::IO_ReadFile(LinkedQueue<Event*>& ReturnList)
 		return false;
 	}
 }
-
 bool Station::IO_OutputFile()
 {
 	ofstream outputfile;
 	outputfile.open("output.txt");
 	outputfile.precision(3);
+	App.UI_printString((const char*)"\nWriting to output file...");
 	///write output here
 	outputfile << "CD   ID   FD   WD   ED" << endl;
 	Mission* tempMission = nullptr;
@@ -281,11 +288,9 @@ bool Station::IO_OutputFile()
 	outputfile.close();
 	return false;
 }
-
 Station::~Station()
 {
 }
-
 void Station::pair(Mission* mission, Rover* rover)
 {
 	//char rover_type = rover->get_rover_type();
@@ -411,6 +416,20 @@ void Station::formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, i
 	{
 		PolarMissions.enqueue(temp_mission);
 	}
+}
+
+void Station::set_display_mode()
+{
+	do {
+		App.UI_printString((const char*)"Please choose a display mode:");
+
+		App.UI_printString((const char*)"\n1 - Interactive mode");
+		App.UI_printString((const char*)"\n2 - Step by step mode");
+		App.UI_printString((const char*)"\n3 - Silent mode");
+		
+		display_mode = App.UI_getChar();
+	
+	} while (display_mode != Interactive && display_mode != StepByStep && display_mode != Silent);
 }
 
 void Station::retrieve_rover()
@@ -880,24 +899,21 @@ void Station::print_line() {
 	App.UI_printStringColor(WHITE, str);
 }
 void Station::print_day() {
-	char dummy;
 	stringstream ss;
+	char dummy;
 	switch (display_mode) {
 	case Interactive:
 		ss << "Interactive Mode" << endl;
 		App.UI_printStringColor(BOLDWHITE, ss);
 		break;
 	case StepByStep:
-
 		ss << "Step by Step Mode" << endl;
 		App.UI_printStringColor(BOLDWHITE, ss);
-		this_thread::sleep_for(chrono::seconds(1));
 		break;
 	case Silent:
 		ss << "Silent Mode" << endl;
 		App.UI_printStringColor(BOLDWHITE, ss);
 		break;
-
 
 	}
 	ss << WHITE << "Current day: " << current_day << endl;
@@ -923,12 +939,11 @@ void Station::print_day() {
 		break;
 	case StepByStep:
 		App.UI_DelaySeconds(1);
+
 		break;
 	case Silent:
 
 		break;
-
-
 	}
 	return;
 }

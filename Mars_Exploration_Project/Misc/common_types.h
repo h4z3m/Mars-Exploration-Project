@@ -33,7 +33,7 @@ enum Rover_Types {
 	MOUNTAIN= 'M'
 };
 enum DisplayMode {
-	Interactive = 0,
-	StepByStep,
-	Silent
+	Interactive = '1',
+	StepByStep='2',
+	Silent='3'
 };

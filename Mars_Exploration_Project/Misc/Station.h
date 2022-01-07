@@ -71,7 +71,7 @@ private:
 	LinkedList<Mission*> MountainMissions;
 	/// </Missions' list>
 
-	/// <Rovers list>
+	/// <Rovers' list>
 	PriQ<Rover*> InExecutionRovers;
 	LinkedQueue<Rover*> InCheckupPolarRovers;
 	LinkedQueue<Rover*> InCheckupEmergencyRovers;
@@ -79,8 +79,7 @@ private:
 	PriQ<Rover*> PolarRovers;
 	PriQ<Rover*> EmergencyRovers;
 	PriQ<Rover*> MountainRovers;
-
-	/// </Rovers list>
+	/// </Rovers' list>
 
 	//Private Utility Functions
 	template<typename U, typename... Types>
@@ -125,9 +124,8 @@ public:
 	///////////Ending day of missions
 	/*
 	* Function: end_day
-	* Description:
-	*
-	*
+	* Description: Determines the day at which a mission is 
+	* finished from start day till return day
 	*/
 	int end_day(Mission* mission, Rover* rover);
 	///////////////////THIS FUNCTION PROBABLY DOESNT WORK BUT WHO KNOWS/////////////
@@ -149,7 +147,7 @@ public:
 	void add_mountains_rover(int input_number_of_rovers, int SM, int  CM, int N);
 	/*remove to formulate class*/
 	void formulate_mission(char type, int ED, int ID, int TLOC, int MDUR, int SIG);
-
+	void set_display_mode();
 	void retrieve_rover();
 	void print_day();
 	void check_auto_promotion();
