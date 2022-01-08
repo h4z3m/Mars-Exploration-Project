@@ -260,7 +260,7 @@ bool Station::IO_OutputFile()
 	outputfile.precision(3);
 	App.UI_printString((const char*)"\nWriting to output file...");
 	///write output here
-	outputfile << "CD   ID   FD   WD   ED" << endl;
+	outputfile << "CD\tID\tFD\tWD\tED" << endl;
 	Mission* tempMission = nullptr;
 	float total_wait = 0;
 	float total_execution = 0;
@@ -275,7 +275,7 @@ bool Station::IO_OutputFile()
 		int ED = tempMission->get_ed();
 		total_wait = total_wait + WD;
 		total_execution = total_execution + ED;
-		outputfile << CD << "    " << ID << "    " << FD << "    " << WD << "    " << ED << endl;
+		outputfile << CD << "\t" << ID << "\t" << FD << "\t" << WD << "\t" << ED << endl;
 		emNode = emNode->getNext();
 	}
 	outputfile << "******************************************" << endl;
