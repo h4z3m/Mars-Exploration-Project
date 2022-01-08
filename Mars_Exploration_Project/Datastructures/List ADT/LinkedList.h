@@ -153,7 +153,7 @@ public:
 			for (int i = 1; i < position; i++)
 				ptr = ptr->getNext();
 			ptr->setNext(nullptr);
-			//--count;
+			--count;
 		}
 		else
 		{
@@ -165,7 +165,7 @@ public:
 			deleted = before->getNext();
 			before->setNext(deleted->getNext());
 			delete deleted;
-			//--count;
+			--count;
 		}
 	}
 
