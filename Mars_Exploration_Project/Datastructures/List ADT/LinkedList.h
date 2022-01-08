@@ -63,11 +63,22 @@ public:
 	//inserts a new LNode at end if the list
 	void InsertEnd(const T& data)
 	{
-		LNode<T>* ptr = Head;
-		LNode<T>* R = new LNode<T>(data);
-		for (int i = 1; i < getCount(); i++)
-			ptr = ptr->getNext();
-		ptr->setNext(R);
+		LNode<T>* new_node = new LNode<T>(data);
+
+		LNode<T>* last = Head;
+		new_node->setNext(NULL);
+		if (Head == NULL)
+		{
+			Head = new_node;
+			return;
+		}
+		while (last->getNext() != NULL)
+		{
+			last = last->getNext();
+		}
+		
+		last->setNext(new_node);
+		return;
 		++count;
 	}
 	////////////////////////////////////////////////////////////////////////
